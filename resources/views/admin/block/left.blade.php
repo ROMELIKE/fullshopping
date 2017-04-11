@@ -1,10 +1,13 @@
 <div id="sidebar" class="sidebar responsive ace-save-state">
     <script type="text/javascript">
-        try{ace.settings.loadState('sidebar')}catch(e){}
+        try {
+            ace.settings.loadState('sidebar')
+        } catch (e) {
+        }
     </script>
     <ul class="nav nav-list">
         <li class="active">
-            <a href="index.html">
+            <a href="{!! route('admin.dashboard') !!}">
                 <i class="menu-icon fa fa-tachometer"></i>
                 <span class="menu-text"> Dashboard </span>
             </a>
@@ -21,9 +24,13 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="#" class="dropdown-toggle">
+                    <a href="{!! route('admin.product.list') !!}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         List Products
+                    </a>
+                    <a href="{!! route('admin.product.add') !!}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add Product
                     </a>
                 </li>
             </ul>
@@ -37,9 +44,13 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="tables.html">
+                    <a href="{!! route('admin.cate.list') !!}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         List Categories
+                    </a>
+                    <a href="{!! route('admin.cate.add') !!}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add Category
                     </a>
                 </li>
             </ul>
@@ -54,9 +65,34 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="form-elements.html">
+                    <a href="{!! route('admin.user.list') !!}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         List Members
+                    </a>
+                    <a href="{!! route('admin.user.add') !!}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add Members
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa fa-user"></i>
+                <span class="menu-text"> Administrator </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="{!! route('admin.user.listadmin') !!}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Admin
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
                     </a>
                 </li>
             </ul>
@@ -64,6 +100,7 @@
     </ul><!-- /.nav-list -->
 
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
+           data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
 </div>

@@ -11,15 +11,16 @@
                     </li>
 
                     <li>
-                        <a href="#">Forms</a>
+                        <a href="#">Categories</a>
                     </li>
-                    <li class="active">Form Elements</li>
+                    <li class="active">Add</li>
                 </ul><!-- /.breadcrumb -->
 
                 <div class="nav-search" id="nav-search">
                     <form class="form-search">
 								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<input type="text" placeholder="Search ..." class="nav-search-input"
+                                           id="nav-search-input" autocomplete="off"/>
 									<i class="ace-icon fa fa-search nav-search-icon"></i>
 								</span>
                     </form>
@@ -29,36 +30,45 @@
             <div class="page-content">
                 <div class="page-header">
                     <h1>
-                        Form Elements
+                        Categories
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            Common form elements and layouts
+                            Add
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
-
-                <div class="row">
+                @include('admin.block.displayerrors')
+                <div class="row upslide">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" action="{!! route('admin.cate.add') !!}"
+                              method="post">
+                            <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Text Field </label>
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Category
+                                    Name</label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-5" />
+                                    <input type="text" id="form-field-1" placeholder="Category Name"
+                                           class="col-xs-10 col-sm-5" value="{!! old('catename') !!}" name="catename"/>
+                                    {{--@if(count($errors)>0)--}}
+                                    {{--@foreach($errors->get('catename') as $error)--}}
+                                    {{--<p style='color: red'>{{$error}}</p>--}}
+                                    {{--@endforeach--}}
+                                    {{--@endif--}}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> Full Length </label>
+                                <label class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1-1">Parrent</label>
 
                                 <div class="col-sm-9">
-                                    <select name="" id="">
-                                        <option value="">chuyên mục 1</option>
-                                        <option value="">chuyên mục 2</option>
-                                        <option value="">chuyên mục 3</option>
-                                        <option value="">chuyên mục 4</option>
-                                        <option value="">chuyên mục 5</option>
+                                    <select name="parrent" id="">
+                                        <option value="" class="disabled">Choose a parrent category</option>
+                                        @foreach($list as $item)
+                                            <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -68,8 +78,8 @@
                                 <div class="col-sm-9">
 											<span class="input-icon">
 												<label>
-                                                <input name="switch-field-1" class="ace ace-switch ace-switch-3"
-                                                       type="checkbox">
+                                                <input name="switch_field_1" class="ace ace-switch ace-switch-3"
+                                                       type="checkbox" value="1" checked>
                                                 <span class="lbl"></span>
                                             </label>
 											</span>
@@ -80,7 +90,7 @@
 
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <button class="btn btn-info" type="button">
+                                    <button class="btn btn-info" type="submit">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
                                         Submit
                                     </button>

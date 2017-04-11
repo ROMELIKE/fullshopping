@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
         </button>
         <div class="navbar-header pull-left">
-            <a href="index.html" class="navbar-brand">
+            <a href="{!! route('admin.dashboard') !!}" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
                     Rome Admin
@@ -40,7 +40,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a href="{{route('getlogout')}}">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>

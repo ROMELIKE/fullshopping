@@ -29,9 +29,6 @@
 <!--[if !IE]> -->
 <script src="{{asset('')}}admin/js/jquery-2.1.4.min.js"></script>
 
-<!-- <![endif]-->
-
-<!--[if IE]>
 <script src="{{asset('admin/js/jquery-1.11.3.min.js')}}"></script>
 <![endif]-->
 <script type="text/javascript">
@@ -42,8 +39,11 @@
 <!-- page specific plugin scripts -->
 
 <!--[if lte IE 8]>
-<script src="{{asset('admin/js/excanvas.min.js')}}"></script>
+
 <![endif]-->
+<script src="{{asset('admin/js/excanvas.min.js')}}"></script>
+<script src="{{asset('admin/js/ownjquery.js')}}"></script>
+
 <script src="{{asset('admin/js/jquery-ui.custom.min.js')}}"></script>
 <script src="{{asset('admin/js/jquery.ui.touch-punch.min.js')}}"></script>
 <script src="{{asset('admin/js/jquery.easypiechart.min.js')}}"></script>

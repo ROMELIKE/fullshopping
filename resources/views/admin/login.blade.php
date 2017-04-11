@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
     <title>Login Page - Rome Admin</title>
 
-    <meta name="description" content="User login page" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
     <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('admin/font-awesome/4.5.0/css/font-awesome.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('admin/font-awesome/4.5.0/css/font-awesome.min.css')}}"/>
 
     <!-- text fonts -->
-    <link rel="stylesheet" href="{{asset('admin/css/fonts.googleapis.com.css')}}" />
+    <link rel="stylesheet" href="{{asset('admin/css/fonts.googleapis.com.css')}}"/>
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="{{asset('admin/css/ace.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('admin/css/ace.min.css')}}"/>
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="{{asset('admin/css/ace-part2.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('admin/css/ace-part2.min.css')}}"/>
     <![endif]-->
-    <link rel="stylesheet" href="{{asset('admin/css/ace-rtl.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('admin/css/ace-rtl.min.css')}}"/>
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="{{asset('admin/css/ace-ie.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('admin/css/ace-ie.min.css')}}"/>
     <![endif]-->
 
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
@@ -33,6 +33,11 @@
     <script src="{{asset('admin/js/html5shiv.min.js')}}"></script>
     <script src="{{asset('admin/js/respond.min.js')}}"></script>
     <![endif]-->
+    <style>
+        ul.error_msg {
+            list-style: none;
+        }
+    </style>
 </head>
 
 <body class="login-layout">
@@ -59,37 +64,52 @@
                                         <i class="ace-icon fa fa-coffee green"></i>
                                         Login
                                     </h4>
-
+                                    @if(Session::has('message'))
+                                        <p style='color: red'>{{Session::get('message')}}</p>
+                                    @endif
                                     <div class="space-6"></div>
 
-                                    <form>
+                                    <form action="{!! route('postlogin') !!}" method="post">
+                                        <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control"
+                                                                   placeholder="Username" name="username"
+                                                                   value="{{old('username')}}"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
+                                                @if(count($errors)>0)
+                                                    @foreach($errors->get('username') as $error)
+                                                        <p style='color: red'>{{$error}}</p>
+                                                    @endforeach
+                                                @endif
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control"
+                                                                   placeholder="Password" name="password"
+                                                                   value="{{old('password')}}"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
+                                                @if(count($errors)>0)
+                                                    @foreach($errors->get('password') as $error)
+                                                        <p style='color: red'>{{$error}}</p>
+                                                    @endforeach
+                                                @endif
                                             </label>
 
                                             <div class="space"></div>
 
                                             <div class="clearfix">
                                                 <label class="inline">
-                                                    <input type="checkbox" class="ace" />
+                                                    <input type="checkbox" class="ace"/>
                                                     <span class="lbl"> Remember Me</span>
                                                 </label>
-
-                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
-                                                    <i class="ace-icon fa fa-key"></i>
-                                                    <span class="bigger-110">Login</span>
-                                                </button>
+                                                <i class="ace-icon fa fa-key"></i>
+                                                <input class="width-35 pull-right btn btn-sm btn-primary" type="submit"
+                                                       value="Login">
                                             </div>
 
                                             <div class="space-4"></div>
@@ -134,7 +154,8 @@
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control"
+                                                                   placeholder="Email"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                             </label>
@@ -173,34 +194,38 @@
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" class="form-control"
+                                                                   placeholder="Email"/>
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control"
+                                                                   placeholder="Username"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control"
+                                                                   placeholder="Password"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
+															<input type="password" class="form-control"
+                                                                   placeholder="Repeat password"/>
 															<i class="ace-icon fa fa-retweet"></i>
 														</span>
                                             </label>
 
                                             <label class="block">
-                                                <input type="checkbox" class="ace" />
+                                                <input type="checkbox" class="ace"/>
                                                 <span class="lbl">
 															I accept the
 															<a href="#">User Agreement</a>
@@ -215,7 +240,8 @@
                                                     <span class="bigger-110">Reset</span>
                                                 </button>
 
-                                                <button type="button" class="width-65 pull-right btn btn-sm btn-success">
+                                                <button type="button"
+                                                        class="width-65 pull-right btn btn-sm btn-success">
                                                     <span class="bigger-110">Register</span>
 
                                                     <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
@@ -251,13 +277,13 @@
 <script src="{{asset('admin/js/jquery-1.11.3.min.js')}}"></script>
 <![endif]-->
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='{{asset('admin/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+    if ('ontouchstart' in document.documentElement) document.write("<script src='{{asset('admin/js/jquery.mobile.custom.min.js')}}'>" + "<" + "/script>");
 </script>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-    jQuery(function($) {
-        $(document).on('click', '.toolbar a[data-target]', function(e) {
+    jQuery(function ($) {
+        $(document).on('click', '.toolbar a[data-target]', function (e) {
             e.preventDefault();
             var target = $(this).data('target');
             $('.widget-box.visible').removeClass('visible');//hide others
@@ -266,24 +292,23 @@
     });
 
 
-
     //you don't need this, just used for changing background
-    jQuery(function($) {
-        $('#btn-login-dark').on('click', function(e) {
+    jQuery(function ($) {
+        $('#btn-login-dark').on('click', function (e) {
             $('body').attr('class', 'login-layout');
             $('#id-text2').attr('class', 'white');
             $('#id-company-text').attr('class', 'blue');
 
             e.preventDefault();
         });
-        $('#btn-login-light').on('click', function(e) {
+        $('#btn-login-light').on('click', function (e) {
             $('body').attr('class', 'login-layout light-login');
             $('#id-text2').attr('class', 'grey');
             $('#id-company-text').attr('class', 'blue');
 
             e.preventDefault();
         });
-        $('#btn-login-blur').on('click', function(e) {
+        $('#btn-login-blur').on('click', function (e) {
             $('body').attr('class', 'login-layout blur-login');
             $('#id-text2').attr('class', 'white');
             $('#id-company-text').attr('class', 'light-blue');

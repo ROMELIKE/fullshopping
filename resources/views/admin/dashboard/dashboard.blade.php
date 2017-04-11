@@ -37,20 +37,18 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="alert alert-block alert-success">
-                            <button type="button" class="close" data-dismiss="alert">
-                                <i class="ace-icon fa fa-times"></i>
-                            </button>
+                        @if(Session::has('message'))
+                            <div class="alert alert-block alert-success message-box">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="ace-icon fa fa-times"></i>
+                                </button>
 
-                            <i class="ace-icon fa fa-check green"></i>
-
-                            Welcome to
-                            <strong class="green">
-                                Ace
-                                <small>(v1.4)</small>
-                            </strong> lêu lêu lêu <a href="https://github.com/bopoda/ace">github</a> (with minified ace
-                            js/css files).
-                        </div>
+                                <i class="ace-icon fa fa-check green"></i>
+                                <strong class="green">
+                                    {{Session::get('message')}}, let see what we have today.
+                                </strong>
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="space-6"></div>
 
