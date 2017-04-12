@@ -18,7 +18,7 @@
 /* Large thumbnail: */
 #etalage .etalage_thumb{
 	background: white url(../images/loading.gif) center no-repeat;
-	
+
 }
 
 /* Large thumbnail - image (in case you want to add a border around the image within the frame) */
@@ -26,10 +26,10 @@
 
 /* Small thumbnails: */
 #etalage .etalage_small_thumbs li{
-	
+
 	border: 1px solid #ddd;
 	margin: 10px;
-	
+
 	cursor:pointer;
 }
 /* The one on the left that makes them slide */
@@ -38,14 +38,14 @@
 #etalage ul li.etalage_smallthumb_last{ }
 /* The currently active one */
 #etalage ul li.etalage_smallthumb_active{
-	
+
 }
 
 /* Zoomed image area: */
 #etalage .etalage_zoom_area,
 .etalage_zoom_area{
 	background: white url(../images/loading.gif) center no-repeat;
-	
+
 }
 
 /* Magnifier area (thumbnail hovering rectangle): */
@@ -83,9 +83,9 @@
  */
 
 .etalage, .etalage_thumb, .etalage_thumb_image, .etalage_source_image, .etalage_zoom_preview, .etalage_icon, .etalage_hint{ display:none }
- .etalage_source_image{
- 	display:none !important;
- }
+.etalage_source_image{
+	display:none !important;
+}
 .etalage, .etalage ul, .etalage li, .etalage img, .etalage_hint, .etalage_icon, .etalage_description{ margin:0; padding:0; border:0; list-style:none }
 .etalage, .etalage_magnifier div, .etalage_magnifier div img, .etalage_small_thumbs ul, ul .etalage_small_thumbs li, .etalage_zoom_area div, .etalage_zoom_img{ position:relative }
 .etalage img, .etalage li{ -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -o-user-select:none; user-select:none; -webkit-user-drag:none; -moz-user-drag:none; user-drag:none }
@@ -120,27 +120,27 @@ div.etalage_description{ position:absolute; bottom:0; left:0; z-index:999 }
 div.etalage_description.rtl{ direction:rtl; text-align:right }
 /*--responsive design--*/
 @media only screen and (max-width: 1024px) {
-.etalage_zoom_area div{
-	width:300px !important;
-}
+	.etalage_zoom_area div{
+		width:300px !important;
+	}
 }
 @media only screen and (max-width: 768px) {
- .etalage_zoom_area div{
-	width:380px !important;
- }
+	.etalage_zoom_area div{
+		width:380px !important;
+	}
 }
 @media only screen and (max-width: 640px) {
-.etalage_zoom_area div{
-	width:200px !important;
-}
+	.etalage_zoom_area div{
+		width:200px !important;
+	}
 }
 @media only screen and (max-width: 480px) {
- .etalage_zoom_area div{
-	display:none;
- }
+	.etalage_zoom_area div{
+		display:none;
+	}
 }
- @media only screen and (max-width: 320px) {
- #etalage .etalage_thumb{
- 	width:90% !important;
- }
+@media only screen and (max-width: 320px) {
+	#etalage .etalage_thumb{
+		width:90% !important;
+	}
 }

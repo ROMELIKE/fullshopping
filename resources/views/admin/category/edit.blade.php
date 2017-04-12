@@ -87,7 +87,7 @@
                                         <span class="input-icon">
 												<label>
                                                 <input name="switch_field_1" class="ace ace-switch ace-switch-3"
-                                                       type="checkbox" value="1" checked>
+                                                       type="checkbox" checked>
                                                 <span class="lbl"></span>
                                             </label>
 											</span>
@@ -95,7 +95,7 @@
                                         <span class="input-icon">
 												<label>
                                                 <input name="switch_field_1" class="ace ace-switch ace-switch-3"
-                                                       type="checkbox" value="0">
+                                                       type="checkbox">
                                                 <span class="lbl"></span>
                                             </label>
 											</span>

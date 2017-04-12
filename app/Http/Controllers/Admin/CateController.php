@@ -160,10 +160,10 @@ class CateController extends Controller
             ]);
 
         } else {
-            $level = 'warning';
+            $level = 'info';
             $message = $result->message;
 
-            return redirect()->back()->with([
+            return redirect()->route('admin.cate.list')->with([
                 'level' => $level,
                 'message' => $message
             ]);

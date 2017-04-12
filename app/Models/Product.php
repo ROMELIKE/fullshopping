@@ -68,6 +68,11 @@ class Product extends Model
         } else {
             $param['count'] = 0;
         }
+        if (isset($array['discount']) && $array['discount']) {
+            $param['discount'] = $array['discount'];
+        } else {
+            $param['discount'] = null;
+        }
         if (isset($array['cate_id']) && $array['cate_id']) {
             $param['cate_id'] = $array['cate_id'];
         } else {
@@ -92,6 +97,11 @@ class Product extends Model
             $param['image'] = $array['thumbnail'];
         } else {
             $param['image'] = 'unknow.jpg';
+        }
+        if (isset($array['listimg']) && $array['listimg']) {
+            $param['listimg'] = $array['listimg'];
+        } else {
+            $param['listimg'] = null;
         }
         $result = new resultObject();
         try {
@@ -122,6 +132,7 @@ class Product extends Model
     public function getProductList($orderBy = 'ASC')
     {
         $result = new resultObject();
+
         try {
             $sql = DB::table($this->table)->orderBy('date', $orderBy)->get()
                 ->toArray();
@@ -136,6 +147,99 @@ class Product extends Model
         } catch (\Exception $exception) {
             $result->message = 'SQL exception';
             $result->messageCode = 0;
+        }
+
+        return $result;
+    }
+
+    public function getNewProductList($orderBy = 'ASC', $take = 0)
+    {
+        $result = new resultObject();
+
+        if ($take) {
+            try {
+                $sql = DB::table($this->table)
+                    ->where('status', '>', 0)
+                    ->orderBy('date', $orderBy)
+                    ->take($take)->get()
+                    ->toArray();
+                if ($sql) {
+                    $result->messageCode = 1;
+                    $result->message = 'Get ProductList successfully';
+                    $result->result = $sql;
+                } else {
+                    $result->messageCode = 0;
+                    $result->message = 'Failure,Can not get ProductList';
+                }
+            } catch (\Exception $exception) {
+                $result->message = 'SQL exception';
+                $result->messageCode = 0;
+            }
+        } else {
+            try {
+                $sql = DB::table($this->table)
+                    ->where('status', '>', 0)
+                    ->orderBy('date', $orderBy)->get()
+                    ->toArray();
+                if ($sql) {
+                    $result->messageCode = 1;
+                    $result->message = 'Get ProductList successfully';
+                    $result->result = $sql;
+                } else {
+                    $result->messageCode = 0;
+                    $result->message = 'Failure,Can not get ProductList';
+                }
+            } catch (\Exception $exception) {
+                $result->message = 'SQL exception';
+                $result->messageCode = 0;
+            }
+        }
+
+        return $result;
+    }
+
+
+    public function getDiscountProductList($orderBy = 'ASC', $take = 0)
+    {
+        $result = new resultObject();
+
+        if ($take) {
+            try {
+                $sql = DB::table($this->table)->where('discount', '>', 0)
+                    ->where('status', '>', 0)
+                    ->orderBy('date', $orderBy)
+                    ->take($take)->get()
+                    ->toArray();
+                if ($sql) {
+                    $result->messageCode = 1;
+                    $result->message = 'Get ProductList successfully';
+                    $result->result = $sql;
+                } else {
+                    $result->messageCode = 0;
+                    $result->message = 'Failure,Can not get ProductList';
+                }
+            } catch (\Exception $exception) {
+                $result->message = 'SQL exception';
+                $result->messageCode = 0;
+            }
+        } else {
+            try {
+                $sql = DB::table($this->table)->where('discount', '>', 0)
+                    ->where('status', '>', 0)
+                    ->orderBy('date', $orderBy)->get()
+                    ->toArray();
+                if ($sql) {
+                    $result->messageCode = 1;
+                    $result->message = 'Get ProductList successfully';
+                    $result->result = $sql;
+                } else {
+                    $result->messageCode = 0;
+                    $result->message = 'Failure,Can not get ProductList';
+                }
+            } catch (\Exception $exception) {
+                $result->message = 'SQL exception';
+                $result->messageCode = 0;
+            }
         }
 
         return $result;
@@ -193,6 +297,9 @@ class Product extends Model
         if (isset($array['price']) && $array['price']) {
             $param['price'] = $array['price'];
         }
+        if (isset($array['discount']) && $array['discount']) {
+            $param['discount'] = $array['discount'];
+        }
         if (isset($array['count']) && $array['count']) {
             $param['count'] = $array['count'];
         }
@@ -204,6 +311,9 @@ class Product extends Model
         }
         if (isset($array['thumbnail']) && $array['thumbnail']) {
             $param['image'] = $array['thumbnail'];
+        }
+        if (isset($array['listimg']) && $array['listimg']) {
+            $param['listimg'] = $array['listimg'];
         }
         if (isset($array['status']) && $array['status']) {
             $param['status'] = 1;
@@ -221,7 +331,7 @@ class Product extends Model
                     = 'Update Product successfully';
             } else {
                 $result->messageCode = 0;
-                $result->message = 'Failure,Can not update Product';
+                $result->message = 'Do not modify any thing';
             }
         } catch (\Exception $exception) {
             $result->message = 'SQL exception';
@@ -259,4 +369,37 @@ class Product extends Model
         return $result;
     }
 
+    public function getRelatedProductList(
+        $id,
+        $cate_id,
+        $orderBy = 'ASC',
+        $take = 9
+    ) {
+        $result = new resultObject;
+        try {
+            $sql = DB::table('product')
+                ->where('cate_id', $cate_id)
+                ->where('id', '<>', $id)
+                ->orderBy('date', $orderBy)
+                ->take($take)
+                ->get();
+            if ($sql) {
+                $result->message = 'Thành công';
+                $result->messageCode = 1;
+                $result->result = $sql;
+                $result->numberOfResult = count($sql);
+            } else {
+                $result->message = 'Thất bại';
+                $result->messageCode = 0;
+                $result->result = $sql;
+                $result->numberOfResult = 0;
+            }
+        } catch (Exception $exception) {
+            $result->message = 'Sql exception';
+            $result->messageCode = 0;
+            $result->numberOfResult = 0;
+        }
+
+        return $result;
+    }
 }

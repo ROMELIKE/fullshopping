@@ -55,23 +55,23 @@
                             <div class="col-xs-12">
                                 <table id="simple-table" class="table  table-bordered table-hover">
                                     <thead>
-                                    <tr>
-                                        <th class="center">
+                                    <tr class="text-center">
+                                        <th class="center text-center">
                                             <label class="pos-rel">
                                                 <input type="checkbox" class="ace"/>
                                                 <span class="lbl"></span>
                                             </label>
                                         </th>
-                                        <th>Category Name</th>
-                                        <th>Parrent</th>
-                                        <th class="hidden-480">Status</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Category Name</th>
+                                        <th class="text-center">Parrent</th>
+                                        <th class="hidden-480 text-center">Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
                                     @foreach($list as $item)
-                                        <tr>
+                                        <tr class="text-center">
                                             <td class="center">
                                                 <label class="pos-rel">
                                                     <input type="checkbox" class="ace"/>

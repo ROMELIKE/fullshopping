@@ -4,7 +4,7 @@
     <div class="container">
         <div class="col-md-3 f_grid1">
             <h3>About</h3>
-            <a href="#"><img src="{{asset('user/images/logo5.png')}}" alt=""/></a>
+            <a href="{!! route('gethome') !!}"><img src="{{asset('user/images/logo5.png')}}" alt=""/></a>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
         </div>
         <div class="col-md-3 f_grid1 f_grid2">

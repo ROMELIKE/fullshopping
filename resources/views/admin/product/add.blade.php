@@ -7,13 +7,13 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
+                        <a href="{!! route('admin.dashboard') !!}">Home</a>
                     </li>
 
                     <li>
-                        <a href="#">Product</a>
+                        <a href="{!! route('admin.product.list') !!}">Product</a>
                     </li>
-                    <li class="active">Add</li>
+                    <li class="active"><a href="{!! route('admin.product.add') !!}">Add</a>
                 </ul><!-- /.breadcrumb -->
 
                 <div class="nav-search" id="nav-search">
@@ -30,10 +30,10 @@
             <div class="page-content">
                 <div class="page-header">
                     <h1>
-                        Product
+                        <a href="{!! route('admin.product.list') !!}">Product</a>
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            Add
+                            <a href="{!! route('admin.product.add') !!}">Add</a>
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
@@ -90,6 +90,14 @@
                                 <div class="col-sm-9">
                                     <input type="number" id="form-field-1" placeholder="Product Price"
                                            class="col-xs-10 col-sm-5" name="price" value="{!! old('price') !!}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Discount</label>
+
+                                <div class="col-sm-9">
+                                    <input type="number" id="form-field-1" placeholder="Percent discount"
+                                           class="col-xs-10 col-sm-5" name="discount" value="{!! old('discount') !!}"/>
                                 </div>
                             </div>
                             <div class="form-group">

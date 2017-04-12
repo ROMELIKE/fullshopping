@@ -7,13 +7,16 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
+                        <a href="{!! route('admin.dashboard') !!}">Home</a>
+
                     </li>
 
                     <li>
-                        <a href="#">Product</a>
+                        <a href="{!! route('admin.product.list') !!}">Product</a>
+
                     </li>
-                    <li class="active">Add</li>
+                    <li class="active"><a href="{!! route('admin.product.list') !!}">List</a>
+
                 </ul><!-- /.breadcrumb -->
 
                 <div class="nav-search" id="nav-search">
@@ -33,10 +36,10 @@
 
                 <div class="page-header">
                     <h1>
-                        Product
+                        <a href="{!! route('admin.product.list') !!}">Product</a>
+
                         <small>
-                            <i class="ace-icon fa fa-angle-double-right"></i>
-                            Add
+                            <a href="{!! route('admin.product.list') !!}">list</a>
                         </small>
                         <a href="{!! route('admin.product.add') !!}" class="btn btn-xs btn-success pull-right btn-lg">
                             <i class="ace-icon fa fa-plus-circle bigger-120"></i>
@@ -63,6 +66,7 @@
                                         <th class="text-center">Category</th>
 
                                         <th class="text-center">Price</th>
+                                        <th class="text-center">Discount</th>
                                         <th class="hidden-480 text-center">Count</th>
 
                                         <th class="text-center">
@@ -92,14 +96,15 @@
                                                 </div>
                                             </td>
 
-                                            <td>
+                                            <td class="text-capitalize" style="font-weight: bold">
                                                 <a href="#">{!! $item->name !!}</a>
                                             </td>
                                             <td>
                                                 <a href="#">{!! $item->category !!}</a>
                                             </td>
-                                            <td>{!! $item->price !!}</td>
-                                            <td class="hidden-480">{!! $item->count !!}</td>
+                                            <td style="color: #a94442">{!! $item->price !!}</td>
+                                            <td style="color: #00BE67">@if($item->discount) {!! $item->discount !!} %@else 0% @endif</td>
+                                            <td class="hidden-480" style="color: #1B6AAA">{!! $item->count !!}</td>
                                             <td>{!! $item->desciption !!}</td>
                                             @if($item->status == 1)
                                                 <td class="hidden-480 text-center">

@@ -9,6 +9,11 @@
             <strong class="green">
                 {{Session::get('message')}}.
             </strong>
+        @elseif(Session::get('level')=='info')
+            <i class="ace-icon fa fa-check blue"></i>
+            <strong class="blue">
+                {{Session::get('message')}}.
+            </strong>
         @else
             <i class="ace-icon fa fa-times red"></i>
             <strong class="red">

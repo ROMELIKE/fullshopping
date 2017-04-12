@@ -1,10 +1,23 @@
 <?php
-Route::get('/', function () {
-    return view('welcome');
-});
-//login-logout for admin function:
-Route::group(['prefix'=>'admin'],function (){
 
+//ROUTE FOR USER:
+Route::get('/',['as'=>'gethome','uses'=>'User\IndexController@getIndex']);
+Route::get('product/{id}',['as'=>'productDetail','uses'=>'User\ProductController@getDetailProduct']);
+
+//USER LOGIN:
+Route::get('login',['as'=>'usergetlogin','uses'=>'User\LoginController@getLogin']);
+Route::post('login',['as'=>'userpostlogin','uses'=>'User\LoginController@postLogin']);
+
+//USER REGISTER:
+Route::get('register',['as'=>'usergetregister','uses'=>'User\RegisterController@getRegister']);
+Route::post('register',['as'=>'userpostregister','uses'=>'User\RegisterController@postRegister']);
+
+//USER SEE CATEGORY PAGE:
+Route::get('getcategory',['as'=>'usergetcategory','uses'=>'User\CategoryController@getCategory']);
+
+
+//ROUTE FOR ADMIN:
+Route::group(['prefix'=>'admin'],function (){
     Route::get('login',['as'=>'getlogin','uses'=>'Auth\LoginController@getLogin']);
     Route::post('login',['as'=>'postlogin','uses'=>'Auth\LoginController@postLogin']);
     Route::get('logout',['as'=>'getlogout','uses'=>'Admin\DashboardController@getLogout']);

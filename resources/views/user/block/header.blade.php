@@ -8,7 +8,7 @@
                 <ul class="social list-inline pull-right">
                     <li><a href=""> <i class="fb"> </i><div class="clearfix"> </div></a></li>
                     <li><a href=""><i class="tw"> </i><div class="clearfix"> </div></a></li>
-
+                    <li><a href=""><i class="fb"> </i><div class="clearfix"> </div></a></li>
                 </ul>
             </div>
         </div>
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3">
                 <div class="logo">
-                    <a href="index.html"><img src="{{asset('user/images/logo5.png')}}" alt=""/></a>
+                    <a href="{!! route('gethome') !!}"><img src="{{asset('user/images/logo5.png')}}" alt=""/></a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4">
@@ -30,8 +30,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5">
                 <ul class="shopping_grid pull-right">
-                    <a href="#"><li>Đăng Ký</li></a>
-                    <a href="login.html"><li>Đăng Nhập</li></a>
+                    <a href="{!! route('usergetregister') !!}"><li>Đăng Ký</li></a>
+                    <a href="{!! route('usergetlogin') !!}"><li>Đăng Nhập</li></a>
                     <a href="#"><li><span class="m_1">Giỏ Hàng</span>&nbsp;&nbsp;(0) &nbsp;<img src="{{asset('user/images/bag.png')}}" alt=""/></li></a>
                 </ul>
             </div>
@@ -43,12 +43,12 @@
     <div class="container">
         <a class="toggleMenu" href="#">Menu</a>
         <ul class="nav">
-            <li class="active"><a href="index.html" data-hover="Home">TRANG CHỦ</a></li>
+            <li class="active"><a href="{!! route('gethome') !!}" data-hover="Home">TRANG CHỦ</a></li>
             <li><a href="about.html" data-hover="About Us">GIỚI THIỆU</a></li>
-            <li><a href="careers.html" data-hover="Careers">KHÁCH HÀNG</a></li>
-            <li><a href="contact.html" data-hover="Contact Us">LIÊN HỆ</a></li>
-            <li><a href="404.html" data-hover="Company Profile">HỒ SƠ</a></li>
-            <li><a href="register.html" data-hover="Company Registration">DANH MỤC</a></li>
+            <li><a href="" data-hover="Careers">KHÁCH HÀNG</a></li>
+            <li><a href="" data-hover="Contact Us">LIÊN HỆ</a></li>
+            <li><a href="" data-hover="Company Profile">HỒ SƠ</a></li>
+            <li><a href="" data-hover="Company Registration">DANH MỤC</a></li>
             <li><a href="wishlist.html" data-hover="Wish List">Wish List</a></li>
         </ul>
         <script type="text/javascript" src="{{asset('user/js/nav.js')}}"></script>

@@ -77,6 +77,27 @@ class Category extends Model
         return $result;
     }
 
+    public function getMenuLevel1List()
+    {
+        $result = new resultObject;
+        try {
+            $sql = DB::table($this->table)->where('parrent_id', 0)
+                ->where('status', '>', 0)->get()->toArray();
+            if ($sql) {
+                $result->message = 'Thành công';
+                $result->messageCode = 1;
+                $result->result = $sql;
+            } else {
+                $result->message = 'Thất bại';
+                $result->messageCode = 0;
+            }
+        } catch (Exception $exception) {
+            $result->message = 'Sql exception';
+            $result->messageCode = 0;
+        }
+
+        return $result;
+    }
 
     /**
      * Function: get name'sCategory by id.
@@ -110,6 +131,32 @@ class Category extends Model
         return $result;
     }
 
+    public function getCategoryByParrentId($id)
+    {
+        $result = new resultObject;
+        try {
+            $sql = DB::table($this->table)->where('parrent_id', $id)
+                ->where('status', '>', 0)->get()
+                ->toArray();
+            if ($sql) {
+                $result->message = 'Thành công';
+                $result->messageCode = 1;
+                $result->result = $sql;
+                $result->numberOfResult = count($sql);
+            } else {
+                $result->message = 'Thất bại';
+                $result->messageCode = 0;
+                $result->result = $sql;
+                $result->numberOfResult = 0;
+            }
+        } catch (Exception $exception) {
+            $result->message = 'Sql exception';
+            $result->messageCode = 0;
+            $result->numberOfResult = 0;
+        }
+
+        return $result;
+    }
 
     /**
      * Function: check the existion of a new category.
@@ -185,7 +232,7 @@ class Category extends Model
         if (isset($array['parrent_id']) && $array['parrent_id']) {
             $param['parrent_id'] = $array['parrent_id'];
         } else {
-            $param['parrent_id'] = null;
+            $param['parrent_id'] = 0;
         }
         if (isset($array['status']) && $array['status']) {
             $param['status'] = $array['status'];
@@ -244,8 +291,6 @@ class Category extends Model
         }
         if (isset($array['alias']) && $array['alias']) {
             $param['alias'] = $array['alias'];
-        } else {
-            $param['alias'] = null;
         }
         $result = new resultObject;
         try {

@@ -7,13 +7,15 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
+                        <a href="{!! route('admin.dashboard') !!}">Home</a>
+
                     </li>
 
                     <li>
-                        <a href="#">Product</a>
+                        <a href="{!! route('admin.product.list') !!}">Product</a>
                     </li>
-                    <li class="active">Add</li>
+                    <li class="active"><a href="{!! route('admin.product.edit',['id'=>$thisProduct->id]) !!}">Edit</a>
+                    </li>
                 </ul><!-- /.breadcrumb -->
 
                 <div class="nav-search" id="nav-search">
@@ -30,10 +32,10 @@
             <div class="page-content">
                 <div class="page-header">
                     <h1>
-                        Product
+                        <a href="{!! route('admin.product.list') !!}">Product</a>
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            Add
+                            <a href="{!! route('admin.product.edit',['id'=>$thisProduct->id]) !!}">Edit</a>
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
@@ -99,6 +101,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Discount</label>
+
+                                <div class="col-sm-9">
+                                    <input type="number" id="form-field-1" placeholder="Percent discount"
+                                           class="col-xs-10 col-sm-5" name="discount" value="{!! $thisProduct->discount !!}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Count</label>
 
                                 <div class="col-sm-9">
@@ -123,7 +133,7 @@
                                 <div class="col-sm-9">
 											<span class="input-icon">
                                                 <img src="{!! asset('admin/images/products').'/'.$thisProduct->image !!}"
-                                                     alt="" class="img-responsive thumbnail" width="200em">
+                                                     alt="" class="img-responsive thumbnail" width="350em">
 											</span>
                                 </div>
                             </div>
@@ -148,11 +158,33 @@
                                     </label>
                                 </div>
                             </div>
+                            @if($thisProduct->listimg)
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right"></label>
+                                    <div class="col-sm-9">
+											<span class="input-icon list-inline">
+                                                <table>
+                                                    <tr>
+                                                        @foreach($thisProduct->listimg as $item2)
+                                                            <td>
+                                                                <img src="{!! asset('admin/images/product_list').'/'.$item2 !!}"
+                                                             alt="" class="img-responsive thumbnail" width="100em">
+                                                                <input type="hidden" name="current_listimg" value="{!! $item2 !!}">
+                                                            </td>
+                                                        @endforeach
+                                                    </tr>
+                                                </table>
+                                            </span>
+                                    </div>
+                                </div>
+                            @else
+                            @endif
+
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right">More images</label>
                                 <div class="col-xs-9 col-md-4">
                                     <label class="ace-file-input ace-file-multiple">
-                                        <input multiple="" type="file" id="id-input-file-3" name="listimg">
+                                        <input multiple="" type="file" id="id-input-file-3" name="listimg[]">
                                         <span class="ace-file-container"
                                               data-title="Drop files here or click to choose">
                                             <span class="ace-file-name" data-title="No File ...">

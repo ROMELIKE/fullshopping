@@ -35,10 +35,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postAdd(Request $request)
+    public function postAdd(AddProductRequest $request)
     {
-        dd($request->listimg);
-      
+        $model = new Product();
 
         //get input variables.
         $array = [
@@ -46,6 +45,7 @@ class ProductController extends Controller
             'alias' => changeTitle(strip_tags(trim($request->name))),
             'cate_id' => $request->catid,
             'price' => trim($request->price),
+            'discount'=>trim($request->discount),
             'count' => trim($request->count),
             'description' => htmlentities(trim($request->description)),
             'status' => $request->status,
@@ -65,7 +65,28 @@ class ProductController extends Controller
             $request->thumbnail->move('admin/images/products/', $thumbnail);
         }
 
-        $model = new Product();
+        //handle list of images (detail images):
+        if (isset($request->listimg) && $request->listimg) {
+            $listImg = $request->listimg;
+
+            $arrayImg = [];
+            foreach ($listImg as $item) {
+                //get the image name (one by one).
+                $imageName = $item->getClientOriginalName();
+
+                //move image to folder (one by one).
+                $item->move('admin/images/product_list', $imageName);
+
+                //save image in array (one by one).
+                $arrayImg[] = $imageName;
+            }
+            //jsonning $arrayImg .
+            $jsonEncodeArrayImage = json_encode($arrayImg);
+
+            //save json in array.
+            $array['listimg'] = $jsonEncodeArrayImage;
+        }
+
 
         //Save in database, get return values
         $result = $model->addProduct($array);
@@ -104,6 +125,9 @@ class ProductController extends Controller
         if ($checkId->messageCode) {
             $thisProduct = $checkId->result;
 
+            //handle the listimg before:
+            $thisProduct->listimg = json_decode($thisProduct->listimg);
+
             return view('admin.product.edit',
                 compact(['categoryList', 'thisProduct']));
         } else {
@@ -131,6 +155,7 @@ class ProductController extends Controller
             'alias' => changeTitle(strip_tags(trim($request->name))),
             'cate_id' => $request->cate_id,
             'price' => $request->price,
+            'discount'=>trim($request->discount),
             'count' => strip_tags(trim($request->count)),
             'desciption' => htmlentities($request->desciption),
             'status' => $request->status,
@@ -138,7 +163,7 @@ class ProductController extends Controller
             'id' => $id
         ];
 
-        //Handle  thumbnail input:
+        //Handle  thumbnail input(single image):
         if (isset($request->thumbnail) && $request->thumbnail) {
 
             $thumbnail = $request->thumbnail->getClientOriginalName();
@@ -159,6 +184,35 @@ class ProductController extends Controller
             }
         }
 
+        //Handle listimg input (list images):
+        if (isset($request->listimg) && $request->listimg) {
+            $listImg = $request->listimg;
+            $arrayImg = [];
+            foreach ($listImg as $item) {
+                //get the image name (one by one).
+                $imageName = $item->getClientOriginalName();
+
+                //move image to folder (one by one).
+                $item->move('admin/images/product_list', $imageName);
+
+                //save image in array (one by one).
+                $arrayImg[] = $imageName;
+
+                //remove current listimg (one by one).
+                $current_listimg = "admin/images/product_list/"
+                    .$request->current_listimg;
+                if (File::exists($current_listimg)) {
+                    File::delete($current_listimg);
+                }
+            }
+            //jsonning $arrayImg .
+            $jsonEncodeArrayImage = json_encode($arrayImg);
+
+            //save json in array.
+            $array['listimg'] = $jsonEncodeArrayImage;
+        }/*end handle listimg*/
+
+
         //check exist name of product.
         $thisProduct = $model->getProductById($id)->result;
         if ($thisProduct->name == strip_tags(trim($request->name))) {
@@ -175,8 +229,8 @@ class ProductController extends Controller
                 ->with(['level' => 'success', 'message' => $result->message]);
         } else {
             return redirect()
-                ->route('admin.product.edit', ['id' => $thisProduct->id])
-                ->with(['level' => 'danger', 'message' => $result->message]);
+                ->route('admin.product.list')
+                ->with(['level' => 'info', 'message' => $result->message]);
         }
     }
 

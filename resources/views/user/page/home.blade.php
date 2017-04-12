@@ -1,488 +1,120 @@
 @extends('user.master')
-@section('title','Home')
+@section('title','GIFTS SHOP')
 @section('content')
     @include('user.block.slide')
-<div class="main">
-    <div class="content_top">
-        <div class="container">
-            @include('user.block.sidebar')
-            <div class="col-md-9 content_right">
-                <!-- .......................................................... -->
-                <h4 class="head"><span class="m_2">SẢN PHẨM</span> MỚI NHẤT</h4>
-                <div class="top_grid1">
-                    <div class="col-md-4 box_2">
-                        <div class="grid_1"><a href="single.html">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p1.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                        </div>
-                        </a></div>
-                    <div class="col-md-8 box_1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p2.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
+    <div class="main">
+        <div class="content_top">
+            <div class="container">
+                @include('user.block.sidebar')
+                <div class="col-md-9 content_right">
+                    <!-- .......................................................... -->
+                    <h4 class="head"><span class="m_2">Lastest</span> product</h4>
+                    <div class="top_grid2">
+                        @foreach($newProducts as $item_new)
+                            <div class="col-md-4 top_grid1-box1" style="margin-bottom: 19px">
+                                <a href="{!! route('productDetail',['id'=>$item_new->id]) !!}">
+                                    <div class="grid_1" style="height: 16em;">
+                                        <div class="b-animate-go  thickbox" style="height: 10em">
+                                            <a href="{!! route('productDetail',['id'=>$item_new->id]) !!}">
+                                                <img src="{!! asset('admin/images/products/').'/'.$item_new->image !!}"
+                                                     class="img" alt="" style="max-height:11em; width: 15.6em "/>
+                                            </a>
+                                        </div>
+                                        <div class="grid_2">
+                                            <a href="{!! route('productDetail',['id'=>$item_new->id]) !!}" style="display: block; margin-top: 10px">
+                                                <h4 class="text-center">{!! $item_new->name !!}</h4>
+                                            </a>
+                                            <ul class="grid_2-bottom">
+                                                <li class="grid_2-left">
+                                                    <p>{!! $item_new->price !!}<span style="font-size: 15px!important;">$</span>
+                                                        @if($item_new->discount)
+                                                            <small style="color: red">-{!! $item_new->discount !!}%</small>
+                                                        @else
+                                                        @endif
+                                                    </p>
+                                                </li>
+                                                <li class="grid_2-right">
+                                                    <a href="">
+                                                        <div class="btn btn-primary btn-normal btn-inline "
+                                                             target="_self"
+                                                             title="Mua">add
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <div class="clearfix"></div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                        <div class="clearfix"></div>
+                    </div>
+                    <br>
+                    <div class="load-more text-center">
+                        <a href="">
+                            <div class="btn btn-primary btn-normal btn-inline "
+                                 target="_self"
+                                 title="Mua">See more
                             </div>
                         </a>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="top_grid2">
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p3.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
+
+                    <!-- .......................................................... -->
+                    <!-- .......................................................... -->
+                    <h4 class="head"><span class="m_2">Discount</span> product</h4>
+                    <div class="top_grid2">
+                        @foreach($newDiscountProducts as $item_discount)
+                            <div class="col-md-4 top_grid1-box1" style="margin-bottom: 19px">
+                                <a href="">
+                                    <div class="grid_1"style="height:16em;">
+                                        <div class="b-animate-go thickbox" style="height: 10em">
+                                            <a href="">
+                                                <img src="{!! asset('admin/images/products/').'/'.$item_discount->image !!}"
+                                                     class="img" alt="" style="max-height:11em; width: 15.6em "/>
+                                            </a>
+                                        </div>
+                                        <div class="grid_2">
+                                            <a href="" style="display: block; margin-top: 10px">
+                                                <h4 class="text-center">{!! $item_discount->name !!}</h4>
+                                            </a>
+                                            <ul class="grid_2-bottom">
+                                                <li class="grid_2-left">
+                                                    <p>{!! $item_discount->price !!}<span style="font-size: 15px!important;">$</span>
+                                                        @if($item_discount->discount)
+                                                            <small style="color: red">-{!! $item_discount->discount !!}%</small>
+                                                        @else
+                                                        @endif
+                                                    </p>
+                                                </li>
+                                                <li class="grid_2-right">
+                                                    <a href="">
+                                                        <div class="btn btn-primary btn-normal btn-inline "
+                                                             target="_self"
+                                                             title="Mua">add
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <div class="clearfix"></div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p4.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
+                        @endforeach
+                        <div class="clearfix"></div>
+                    </div>
+                    <br>
+                    <div class="load-more text-center">
+                        <a href="">
+                            <div class="btn btn-primary btn-normal btn-inline "
+                                 target="_self"
+                                 title="Mua">See more
                             </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p5.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="top_grid2">
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p6.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p7.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p8.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="top_grid2">
-                    <img style="margin-left: 10px;" class="img-responsive" src="{{asset('user/images/banner/ad2.png')}}">
-                </div>
-                <!-- .......................................................... -->
-                <h4 class="head"><span class="m_2">SẢN PHẨM</span> NỔI BẬT</h4>
-                <div class="top_grid2">
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p9.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p10.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p11.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="top_grid2">
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p12.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p13.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p14.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="top_grid2">
-                    <img style="margin-left: 10px;" class="img-responsive" src="images/banner/ad1.png">
-                </div>
-                <!-- ........................................................ -->
-                <h4 class="head"><span class="m_2">SẢN PHẨM</span> KHUYẾN MÃI</h4>
-                <div class="top_grid2">
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p9.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p10.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p11.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="top_grid2">
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p9.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p10.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="col-md-4 top_grid1-box1"><a href="single.html">
-                            <div class="grid_1">
-                                <div class="b-link-stroke b-animate-go  thickbox">
-                                    <img src="{{asset('user/images/p11.jpg')}}" class="img-responsive" alt=""/></div>
-                                <div class="grid_2">
-                                    <p>There are many variations of passages</p>
-                                    <ul class="grid_2-bottom">
-                                        <li class="grid_2-left">
-                                            <p>$99
-                                                <small>.33</small>
-                                            </p>
-                                        </li>
-                                        <li class="grid_2-right">
-                                            <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                 title="Mua">Mua
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a></div>
-                    <div class="clearfix"></div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-    @endsection
+@endsection

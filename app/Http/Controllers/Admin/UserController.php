@@ -129,8 +129,8 @@ class UserController extends Controller
                 'message' => $result->message
             ]);
         } else {
-            return redirect()->route('admin.user.edit', ['id' => $id])->with([
-                'level' => 'danger',
+            return redirect()->route('admin.user.list')->with([
+                'level' => 'info',
                 'message' => $result->message
             ]);
         }
