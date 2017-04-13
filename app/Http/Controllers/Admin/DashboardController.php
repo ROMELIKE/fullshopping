@@ -27,6 +27,6 @@ class DashboardController extends Controller
     {
         Auth::logout();
 
-        return redirect('admin/login');
+        return redirect()->route('getlogin');
     }
 }

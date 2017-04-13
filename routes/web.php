@@ -1,30 +1,35 @@
 <?php
+Route::pattern('id', '[0-9]+');
 
 //ROUTE FOR USER:
 Route::get('/',['as'=>'gethome','uses'=>'User\IndexController@getIndex']);
 Route::get('product/{id}',['as'=>'productDetail','uses'=>'User\ProductController@getDetailProduct']);
 
 //USER LOGIN:
-Route::get('login',['as'=>'usergetlogin','uses'=>'User\LoginController@getLogin']);
-Route::post('login',['as'=>'userpostlogin','uses'=>'User\LoginController@postLogin']);
-
+Route::group(['middleware'=>'UserRouteMiddleware'],function(){
+    Route::get('login',['as'=>'usergetlogin','uses'=>'User\LoginController@getLogin']);
+    Route::post('login',['as'=>'userpostlogin','uses'=>'User\LoginController@postLogin']);
 //USER REGISTER:
-Route::get('register',['as'=>'usergetregister','uses'=>'User\RegisterController@getRegister']);
-Route::post('register',['as'=>'userpostregister','uses'=>'User\RegisterController@postRegister']);
+    Route::get('register',['as'=>'usergetregister','uses'=>'User\RegisterController@getRegister']);
+    Route::post('register',['as'=>'userpostregister','uses'=>'User\RegisterController@postRegister']);
+});
+
+Route::get('userlogout',['as'=>'simpleUserLogout','uses'=>'User\IndexController@getLogout']);
 
 //USER SEE CATEGORY PAGE:
 Route::get('getcategory',['as'=>'usergetcategory','uses'=>'User\CategoryController@getCategory']);
 
+//ROUTE FOR ADMIN LOGIN:
+Route::get('lr-admin',['as'=>'getlogin','uses'=>'Auth\LoginController@getLogin']);
+Route::post('lr-admin',['as'=>'postlogin','uses'=>'Auth\LoginController@postLogin']);
+Route::get('logout',['as'=>'getlogout','uses'=>'Admin\DashboardController@getLogout']);
 
-//ROUTE FOR ADMIN:
-Route::group(['prefix'=>'admin'],function (){
-    Route::get('login',['as'=>'getlogin','uses'=>'Auth\LoginController@getLogin']);
-    Route::post('login',['as'=>'postlogin','uses'=>'Auth\LoginController@postLogin']);
-    Route::get('logout',['as'=>'getlogout','uses'=>'Admin\DashboardController@getLogout']);
+Route::any('{all?}','User\IndexController@getIndex')->where('all','(.)');
 
-    //nhóm 1 group chung 1 middleware.
+//ROUTE FOR ADMIN PAGE:
+Route::group(['prefix'=>'admin','middleware'=>['AdminRouteMiddleware']],function (){
     Route::get('dashboard',['as'=>'admin.dashboard','uses'=>'Admin\DashboardController@getDashboard']);
-
+        //Manager simple Cate:
     Route::group(['prefix'=>'cate'],function(){
        Route::get('add',['as'=>'admin.cate.add','uses'=>'Admin\CateController@getAdd']);
        Route::post('add',['as'=>'admin.cate.add','uses'=>'Admin\CateController@postAdd']);
@@ -46,7 +51,7 @@ Route::group(['prefix'=>'admin'],function (){
         Route::get('list-admin',['as'=>'admin.user.listadmin','uses'=>'Admin\UserController@getListAdmin']);
     });
     Route::group(['prefix'=>'product'],function (){
-        //Manager simple User:
+        //Manager Product:
         Route::get('add',['as'=>'admin.product.add','uses'=>'Admin\ProductController@getAdd']);
         Route::post('add',['as'=>'admin.product.add','uses'=>'Admin\ProductController@postAdd']);
         Route::get('list',['as'=>'admin.product.list','uses'=>'Admin\ProductController@getList']);

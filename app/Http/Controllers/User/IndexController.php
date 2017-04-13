@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class IndexController extends Controller
 {
@@ -45,5 +46,12 @@ class IndexController extends Controller
             'newDiscountProducts',
             'menuLevel1'
         ]));
+    }
+
+    public function getLogout()
+    {
+        Auth::guard('simpleUser')->logout();
+
+        return redirect()->route('gethome');
     }
 }

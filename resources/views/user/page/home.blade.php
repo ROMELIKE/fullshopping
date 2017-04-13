@@ -66,11 +66,11 @@
                     <div class="top_grid2">
                         @foreach($newDiscountProducts as $item_discount)
                             <div class="col-md-4 top_grid1-box1" style="margin-bottom: 19px">
-                                <a href="">
-                                    <div class="grid_1"style="height:16em;">
+                                <a href="{!! route('productDetail',['id'=>$item_discount->id]) !!}">
+                                <div class="grid_1"style="height:16em;">
                                         <div class="b-animate-go thickbox" style="height: 10em">
-                                            <a href="">
-                                                <img src="{!! asset('admin/images/products/').'/'.$item_discount->image !!}"
+                                            <a href="{!! route('productDetail',['id'=>$item_discount->id]) !!}">
+                                            <img src="{!! asset('admin/images/products/').'/'.$item_discount->image !!}"
                                                      class="img" alt="" style="max-height:11em; width: 15.6em "/>
                                             </a>
                                         </div>
@@ -88,8 +88,8 @@
                                                     </p>
                                                 </li>
                                                 <li class="grid_2-right">
-                                                    <a href="">
-                                                        <div class="btn btn-primary btn-normal btn-inline "
+                                                    <a href="{!! route('productDetail',['id'=>$item_discount->id]) !!}">
+                                                    <div class="btn btn-primary btn-normal btn-inline "
                                                              target="_self"
                                                              title="Mua">add
                                                         </div>

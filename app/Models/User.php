@@ -272,6 +272,9 @@ class User extends Authenticatable
         if (isset($array['name']) && $array['name']) {
             $param['name'] = $array['name'];
         }
+        if (isset($array['username']) && $array['username']) {
+            $param['username'] = $array['username'];
+        }
         if (isset($array['address']) && $array['address']) {
             $param['address'] = $array['address'];
         }

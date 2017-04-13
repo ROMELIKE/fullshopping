@@ -97,6 +97,166 @@
                 </li>
             </ul>
         </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa fa-cogs"></i>
+                <span class="menu-text"> Config </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Header
+                    </a>
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Logo
+                    </a>
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        font
+                    </a>
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        slides
+                    </a>
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Advertises
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        footer
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Language
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-envelope-o"></i>
+                <span class="menu-text"> Emails </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Admin
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-shopping-cart "></i>
+                <span class="menu-text"> Transaction </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Transacion
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-pie-chart"></i>
+                <span class="menu-text"> Statistic</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Transacion
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-newspaper-o "></i>
+                <span class="menu-text"> News</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        News
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-user-plus"></i>
+                <span class="menu-text"> Recruitment</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        News
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-cc-paypal"></i>
+                <span class="menu-text"> E-shopping</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Transacion
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul><!-- /.nav-list -->
 
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

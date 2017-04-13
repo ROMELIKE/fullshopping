@@ -105,7 +105,7 @@
                                             <td style="color: #a94442">{!! $item->price !!}</td>
                                             <td style="color: #00BE67">@if($item->discount) {!! $item->discount !!} %@else 0% @endif</td>
                                             <td class="hidden-480" style="color: #1B6AAA">{!! $item->count !!}</td>
-                                            <td>{!! $item->desciption !!}</td>
+                                            <td>{!! substr($item->desciption,0,50) !!}...</td>
                                             @if($item->status == 1)
                                                 <td class="hidden-480 text-center">
                                                     <span class="label label-sm label-success">Censored</span>
@@ -119,6 +119,10 @@
 
                                             <td class="text-center">
                                                 <div class="hidden-sm hidden-xs btn-group">
+                                                    <a class="btn btn-xs btn-warning"
+                                                       href="{!! route('productDetail',['id'=>$item->id]) !!}">
+                                                        <i class="ace-icon fa fa-search-plus  bigger-120"></i>
+                                                    </a>
                                                     <a class="btn btn-xs btn-info"
                                                        href="{!! route('admin.product.edit',['id'=>$item->id]) !!}">
                                                         <i class="ace-icon fa fa-pencil bigger-120"></i>

@@ -94,7 +94,7 @@
                                 <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
                                     <div class="facts">
                                         <ul class="tab_list">
-                                            <p>{!! $thisProduct->desciption !!}</p>
+                                            <li>{!! $thisProduct->desciption !!}</li>
                                         </ul>
                                     </div>
                                 </div>

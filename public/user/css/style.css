@@ -2082,3 +2082,6 @@ ul.pagination li a.active {
 	text-transform: uppercase !important;
 	font-weight: 600 !important;
 }
+#dropd{
+    text-transform: none !important;
+}

@@ -28,7 +28,9 @@ class EditProductRequest extends FormRequest
             'cate_id'=>'required',
             'price'=>'required|numeric',
             'count'=>'required|numeric',
+            'price'=>'required|numeric|digits_between:1,10',
             'thumbnail'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
+            'listimg'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
             'desciption'=>'max:300'
         ];
     }

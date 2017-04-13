@@ -26,9 +26,10 @@ class AddProductRequest extends FormRequest
         return [
             'name'=>'required|unique:product,name|max:100',
             'catid'=>'required',
-            'price'=>'required|numeric',
+            'price'=>'required|numeric|digits_between:1,10',
             'count'=>'required|numeric',
             'thumbnail'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
+            'listimg'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
             'desciption'=>'max:300'
         ];
     }

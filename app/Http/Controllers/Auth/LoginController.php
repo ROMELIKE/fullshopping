@@ -49,7 +49,8 @@ class LoginController extends Controller
     {
         $login = [
             'username' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
+            'accessible' => [1,2],
         ];
         if (Auth::attempt($login)) {
             return redirect()->route('admin.dashboard')->with([

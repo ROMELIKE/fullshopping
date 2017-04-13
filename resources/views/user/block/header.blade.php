@@ -6,9 +6,15 @@
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3">
                 <ul class="social list-inline pull-right">
-                    <li><a href=""> <i class="fb"> </i><div class="clearfix"> </div></a></li>
-                    <li><a href=""><i class="tw"> </i><div class="clearfix"> </div></a></li>
-                    <li><a href=""><i class="fb"> </i><div class="clearfix"> </div></a></li>
+                    <li><a href=""> <i class="fb"> </i>
+                            <div class="clearfix"></div>
+                        </a></li>
+                    <li><a href=""><i class="tw"> </i>
+                            <div class="clearfix"></div>
+                        </a></li>
+                    <li><a href=""><i class="fb"> </i>
+                            <div class="clearfix"></div>
+                        </a></li>
                 </ul>
             </div>
         </div>
@@ -30,13 +36,36 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-5">
                 <ul class="shopping_grid pull-right">
-                    <a href="{!! route('usergetregister') !!}"><li>Đăng Ký</li></a>
-                    <a href="{!! route('usergetlogin') !!}"><li>Đăng Nhập</li></a>
-                    <a href="#"><li><span class="m_1">Giỏ Hàng</span>&nbsp;&nbsp;(0) &nbsp;<img src="{{asset('user/images/bag.png')}}" alt=""/></li></a>
+                    <div class="dropdown">
+                        @if(Auth::guard('simpleUser')->check())
+                            <li class="dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                <img class="img-rounded" src="@if(Auth::guard('simpleUser')->user()['avatar']) {!! asset('admin/images/avatars').'/'.Auth::guard('simpleUser')->user()['avatar'] !!}@else{!! asset('user/images/').'/user.png' !!}@endif" width="30" height="30" alt="">
+                                {!! Auth::guard('simpleUser')->user()['name'] !!}
+                                <span class="caret"></span>
+                            </li>
+                            <div class="dropdown-menu text-center" id="dropd" style="margin-top: 69px; border-radius: 0px">
+                                <h4><a href="#">Account</a></h4>
+                                <h4><a href="{!! route('simpleUserLogout') !!}">Logout</a></h4>
+                            </div>
+                        @else
+                            <a href="{!! route('usergetregister') !!}">
+                                <li>Register</li>
+                            </a>
+                            <a href="{!! route('usergetlogin') !!}">
+                                <li>Login</li>
+                            </a>
+                        @endif
+
+
+                        <a href="#">
+                            <li><span class="m_1">Cart</span>&nbsp;
+                                <img src="{!! asset('user/images/bag.png') !!}" alt=""/></li>
+                        </a>
+                    </div>
                 </ul>
             </div>
         </div>
-        <div class="clearfix"> </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 <div class="h_menu4"><!-- start h_menu4 -->
