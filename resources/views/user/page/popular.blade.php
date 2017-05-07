@@ -27,9 +27,11 @@
                                                     </p>
                                                 </li>
                                                 <li class="grid_2-right">
-                                                    <div class="btn btn-primary btn-normal btn-inline " target="_self"
-                                                         title="Mua">add
-                                                    </div>
+                                                    <a href="">
+                                                        <div class="btn btn-primary btn-normal btn-inline " target="_self"
+                                                             title="Mua">add
+                                                        </div>
+                                                    </a>
                                                 </li>
                                                 <div class="clearfix"></div>
                                             </ul>

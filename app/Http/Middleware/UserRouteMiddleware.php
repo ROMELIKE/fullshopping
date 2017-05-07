@@ -9,7 +9,8 @@ class UserRouteMiddleware
 {
     /**
      * Handle an incoming request.
-     *
+     * * I want: any route access to user route(some route), need to check Login before it done.
+     * login account only be a "simple user".
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed

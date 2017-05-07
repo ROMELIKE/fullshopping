@@ -27,10 +27,8 @@
 <!-- basic scripts -->
 
 <!--[if !IE]> -->
-<script src="{{asset('')}}admin/js/jquery-2.1.4.min.js"></script>
+<script src="{{asset('admin/js/jquery-2.1.4.min.js')}}"></script>
 
-<script src="{{asset('admin/js/jquery-1.11.3.min.js')}}"></script>
-<![endif]-->
 <script type="text/javascript">
     if ('ontouchstart' in document.documentElement) document.write("<script src='{{asset('admin/js/jquery.mobile.custom.min.js')}}'>" + "<" + "/script>");
 </script>
@@ -52,10 +50,13 @@
 <script src="{{asset('admin/js/jquery.flot.pie.min.js')}}"></script>
 <script src="{{asset('admin/js/jquery.flot.resize.min.js')}}"></script>
 
+<script src="{{asset('admin/js/markdown.min.js')}}"></script>
+<script src="{{asset('admin/js/jquery.hotkeys.index.min.js')}}"></script>
+<script src="{{asset('admin/js/bootstrap-wysiwyg.min.js')}}"></script>
+
 <!-- ace scripts -->
 <script src="{{asset('admin/js/ace-elements.min.js')}}"></script>
 <script src="{{asset('admin/js/ace.min.js')}}"></script>
-
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {

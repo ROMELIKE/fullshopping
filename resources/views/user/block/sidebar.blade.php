@@ -1,24 +1,32 @@
 <div class="col-md-3 sidebar_box">
     <div class="sidebar">
         <div class="menu_box">
-            <h3 class="menu_head">Danh Mục Sản Phẩm</h3>
+            <h3 class="menu_head">Categories</h3>
             <ul class="menu">
-                @foreach($menuLevel1 as $item)
-                    <li class="item1"><a href="#"><img class="arrow-img" src="{{asset('user/images/f_menu.png')}}"
-                                                       alt=""/>
-                            {!! $item->name !!}</a>
-                        @if($item->children)
-                            <ul class="cute">
-                                @foreach($item->children as $itemChild)
-                                    <li class="subitem1">
-                                        <a href="{!! route('usergetcategory',['id'=>$itemChild->id]) !!}">{!! $itemChild->name !!}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
+                @if(isset($menuLevel1) && $menuLevel1)
+                    @foreach($menuLevel1 as $item)
+                        @if(!$item->children)
+                            <li class="item1">
+                                <a href="{{route('usergetcategory',['id'=>$item->id])}}"><img class="arrow-img" src="{{asset('user/images/f_menu.png')}}"
+                                                                                              alt=""/>{!! $item->name !!}</a>
+                            </li>
                         @else
+                            <li class="item1"><a href="#"><img class="arrow-img" src="{{asset('user/images/f_menu.png')}}"
+                                                               alt=""/>{!! $item->name !!}</a>
+                                @if($item->children)
+                                    <ul class="cute">
+                                        @foreach($item->children as $itemChild)
+                                            <li class="subitem1">
+                                                <a href="{!! route('usergetcategory',['id'=>$itemChild->id]) !!}">{!! $itemChild->name !!}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                @endif
+                            </li>
                         @endif
-                    </li>
-                @endforeach
+                    @endforeach
+                @endif
 
             </ul>
         </div>

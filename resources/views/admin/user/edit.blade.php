@@ -2,7 +2,7 @@
 @section('title','edit user')
 @section('content')
     <div class="main-content">
-        <div class="main-content-inner">
+        <div class="main-content-inner" style="position: relative">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
                 <ul class="breadcrumb">
                     <li>
@@ -132,81 +132,29 @@
                                                 </div>
                                             </div>
                                             <div class="profile-info-row">
-                                                <div class="profile-info-name"> Password</div>
-
-                                                <div class="form-group">
-                                                    <h6 class="pink">
-                                                        <a href="#modal-form" role="button" class="blue"
-                                                           data-toggle="modal">&nbsp &nbsp
-                                                            Change Password... </a>
-                                                    </h6>
-
-                                                    <div id="modal-form" class="modal" tabindex="-1">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close"
-                                                                            data-dismiss="modal">&times;</button>
-                                                                    <h4 class="blue bigger">Change the password of this
-                                                                        User</h4>
-                                                                </div>
-
-                                                                    <div class="modal-body">
-                                                                        <form action="{!! route('admin.user.edit_changepassword',['id'=>$thisUser->id]) !!}"
-                                                                                                   method="post">
-                                                                        <input type="hidden" name="_token"
-                                                                               value="{!! csrf_token() !!}">
-                                                                        <div class="row">
-                                                                            <div class="col-xs-12 col-sm-12">
-                                                                                <table>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <label for="">New
-                                                                                                Password:&nbsp</label>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <input type="password"
-                                                                                                   placeholder="Enter your new password"
-                                                                                                   name="newpw"
-                                                                                                   size="30"/>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <label for="">ReNew
-                                                                                                Password:&nbsp</label>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <input type="password"
-                                                                                                   placeholder="Enter your new password one time again"
-                                                                                                   name="renewpw"
-                                                                                                   size="30"/>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-sm" data-dismiss="modal"
-                                                                                type="reset">
-                                                                            <i class="ace-icon fa fa-times"></i>
-                                                                            Cancel
-                                                                        </button>
-
-                                                                        <button class="btn btn-sm btn-primary"
-                                                                                type="submit">
-                                                                            <i class="ace-icon fa fa-check"></i>
-                                                                            Save
-                                                                        </button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
+                                                <div class="profile-info-name">Gender</div>
+                                                <div class="profile-info-value">
+                                                <span class="input-icon">
+                                                       <div>
+                                                        <label class="line-height-1 blue">
+                                                            <input name="gender" value="1" type="radio" class="ace" />
+                                                            <span class="lbl"> Male</span>
+                                                        </label>
                                                     </div>
+
+                                                    <div>
+                                                        <label class="line-height-1 blue">
+                                                            <input name="gender" value="2" type="radio" class="ace" />
+                                                            <span class="lbl"> Female</span>
+                                                        </label>
+                                                    </div>
+                                                    </span>
                                                 </div>
                                             </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Password</div>
+                                            </div>
+
                                             <div class="profile-info-row">
                                                 <div class="profile-info-name">Status</div>
                                                 <div class="profile-info-value">
@@ -228,6 +176,7 @@
                                                     </span>
                                                 </div>
                                             </div>
+
                                             <div class="profile-info-row">
                                                 <div class="profile-info-name">Confirm</div>
 
@@ -244,7 +193,77 @@
                                     </div>
                                 </div>
                             </form>
+                            <div class="form-group" style="position: absolute;top: 65%;left: 37%;">
+                                <h6 class="pink">
+                                    <a href="#modal-form" role="button" class="blue"
+                                       data-toggle="modal" style="text-decoration: none">&nbsp &nbsp
+                                        Change Password... </a>
+                                </h6>
 
+                                <div id="modal-form" class="modal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                <h4 class="blue bigger">Change the password of this
+                                                    User</h4>
+                                            </div>
+                                            <form action="{!! route('admin.user.edit_changepassword',['id'=>$thisUser->id]) !!}"
+                                                  method="post">
+                                                <input type="hidden" name="_token"
+                                                       value="{!! csrf_token() !!}">
+                                                <div class="modal-body">
+
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12">
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <label for="">New
+                                                                            Password:&nbsp</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="password"
+                                                                               placeholder="Enter your new password"
+                                                                               name="newpw"
+                                                                               size="30" class="form-group"/>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <label for="">ReNew
+                                                                            Password:&nbsp</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="password"
+                                                                               placeholder="Enter your new password one time again"
+                                                                               name="renewpw"
+                                                                               size="30" class="form-group"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-sm" data-dismiss="modal"
+                                                            type="reset">
+                                                        <i class="ace-icon fa fa-times"></i>
+                                                        Cancel
+                                                    </button>
+
+                                                    <button class="btn btn-sm btn-primary"
+                                                            type="submit">
+                                                        <i class="ace-icon fa fa-check"></i>
+                                                        Save
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->

@@ -38,43 +38,47 @@
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="desc1 span_3_of_2">
-                                <h1> {!! $thisProduct->name !!}</h1>
-                                <p class="availability">Availability: <span class="color">@if($thisProduct->count) In
-                                        stock @else Out of stock @endif</span></p>
-                                <div class="price_single">
-                                    <span class="reducedfrom">@if($thisProduct->discount)${!! $thisProduct->price + (($thisProduct->price*$thisProduct->discount)/100) !!}@else @endif</span>
-                                    <span class="actual">${!! $thisProduct->price !!}</span>
-                                </div>
-                                <h2 class="quick">Quick Overview:</h2>
-                                <p class="quick_desc">{!! $thisProduct->shorttext !!}</p>
-                                <div class="wish-list">
-                                    <ul>
-                                        <li class="wish"><a href="#">Add to Wishlist</a></li>
-                                        <li class="compare"><a href="#">Add to Compare</a></li>
+                            <form action="{{route('getshopping',['id'=>$thisProduct->id])}}">
+                                <div class="desc1 span_3_of_2">
+                                    <h1> {!! $thisProduct->name !!}</h1>
+                                    <p class="availability">Availability: <span class="color">@if($thisProduct->count) In
+                                            stock @else Out of stock @endif</span></p>
+                                    <div class="price_single">
+                                        <span class="reducedfrom">@if($thisProduct->discount)${!! $thisProduct->price + (($thisProduct->price*$thisProduct->discount)/100) !!}@else @endif</span>
+                                        <span class="actual">${!! $thisProduct->price !!}</span>
+                                    </div>
+                                    <h2 class="quick">Quick Overview:</h2>
+                                    <p class="quick_desc">{!! $thisProduct->shorttext !!}</p>
+                                    <div class="wish-list">
+                                        <ul>
+                                            <li class="wish"><a href="#">Add to Wishlist</a></li>
+                                            <li class="compare"><a href="#">Add to Compare</a></li>
+                                        </ul>
+                                    </div>
+                                    <ul class="size">
+                                        <h3>Length</h3>
+                                        <li><a href="#">32</a></li>
+                                        <li><a href="#">34</a></li>
                                     </ul>
+                                    <div class="quantity_box">
+                                        <ul class="product-qty">
+                                            <span>Quantity:</span>
+                                            <input type="number" name="quantity" value="1" style="width: 106px;">
+                                        </ul>
+                                        <ul class="single_social">
+                                            <li><a href="#"><i class="fb1"> </i> </a></li>
+                                            <li><a href="#"><i class="tw1"> </i> </a></li>
+                                            <li><a href="#"><i class="g1"> </i> </a></li>
+                                            <li><a href="#"><i class="linked"> </i> </a></li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <button type="submit" title="Online Reservation"
+                                       class="btn bt1 btn-primary btn-normal btn-inline " target="_self">Add to cart</button>
                                 </div>
-                                <ul class="size">
-                                    <h3>Length</h3>
-                                    <li><a href="#">32</a></li>
-                                    <li><a href="#">34</a></li>
-                                </ul>
-                                <div class="quantity_box">
-                                    <ul class="product-qty">
-                                        <span>Quantity:</span>
-                                        <input type="number" name="quantity" value="1" style="width: 106px;">
-                                    </ul>
-                                    <ul class="single_social">
-                                        <li><a href="#"><i class="fb1"> </i> </a></li>
-                                        <li><a href="#"><i class="tw1"> </i> </a></li>
-                                        <li><a href="#"><i class="g1"> </i> </a></li>
-                                        <li><a href="#"><i class="linked"> </i> </a></li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <a href="reservation.html" title="Online Reservation"
-                                   class="btn bt1 btn-primary btn-normal btn-inline " target="_self">Buy</a>
-                            </div>
+                                {{csrf_field()}}
+                            </form>
+
                             <div class="clearfix"></div>
                         </div>
                         <div class="clearfix"></div>

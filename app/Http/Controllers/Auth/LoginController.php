@@ -50,7 +50,8 @@ class LoginController extends Controller
         $login = [
             'username' => $request->username,
             'password' => $request->password,
-            'accessible' => [1,2],
+            'status' => "1",
+            'accessible' => [1, 2],
         ];
         if (Auth::attempt($login)) {
             return redirect()->route('admin.dashboard')->with([
@@ -62,7 +63,6 @@ class LoginController extends Controller
                 'level' => 'danger',
                 'message' => 'Username or Password do not match, try again!'
             ]);
-
         }
     }
 }

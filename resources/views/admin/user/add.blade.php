@@ -56,7 +56,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <form class="form-horizontal" role="form" action="{!! route('admin.user.add') !!}" method="post">
+                        <form class="form-horizontal" role="form" action="{!! route('admin.user.add') !!}" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Full
@@ -124,7 +124,7 @@
                                 <label class="col-sm-3 control-label no-padding-right">Avatar</label>
                                 <div class="col-sm-9 col-md-4">
                                     <label class="ace-file-input">
-                                        <input type="file" id="id-input-file-2">
+                                        <input type="file" id="id-input-file-2" name="avatar">
                                         <span class="ace-file-container" data-title="Choose">
                                                                 <span class="ace-file-name" data-title="No File ...">
                                                                     <i class=" ace-icon fa fa-upload"></i>
@@ -134,6 +134,25 @@
                                             <i class=" ace-icon fa fa-times"></i>
                                         </a>
                                     </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right">Gender</label>
+
+                                <div class="col-xs-12 col-sm-9">
+                                    <div>
+                                        <label class="line-height-1 blue">
+                                            <input name="gender" value="1" type="radio" class="ace" />
+                                            <span class="lbl"> Male</span>
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label class="line-height-1 blue">
+                                            <input name="gender" value="2" type="radio" class="ace" />
+                                            <span class="lbl"> Female</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

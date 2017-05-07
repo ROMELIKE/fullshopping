@@ -38,6 +38,15 @@
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             List
                         </small>
+                        <small>
+                            <a href="{!! route('admin.product.list') !!}">Total: <span  style="color: red;">{{count($listUser)}}</span></a>
+                        </small>
+                        <small>
+                            <a href="{!! route('admin.product.list') !!}">Waiting: <span  style="color: red;">{{count($listUser)}}</span></a>
+                        </small>
+                        <small>
+                            <a href="{!! route('admin.product.list') !!}">Censored: <span  style="color: red;">{{count($listUser)}}</span></a>
+                        </small>
                         {{--<a href="{!! route('admin.user.add') !!}" class="btn btn-xs btn-success pull-right btn-lg">--}}
                         {{--<i class="ace-icon fa fa-plus-circle bigger-120"></i>--}}
                         {{--</a>--}}
@@ -53,89 +62,128 @@
                                 <table id="simple-table" class="table  table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="center">
+                                        <th class="hidden-xs">
                                             <label class="pos-rel">
                                                 <input type="checkbox" class="ace"/>
                                                 <span class="lbl"></span>
                                             </label>
                                         </th>
-                                        <th class="hidden-480">Avatar</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>
+                                        <th class="">Avatar</th>
+                                        <th class="hidden-xs">Full Name</th>
+                                        <th >Username</th>
+                                        <th class="hidden-xs">Email</th>
+                                        <th class="hidden-xs">
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Phone
                                         </th>
-                                        <th>
+                                        <th class="hidden-xs">
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Address
                                         </th>
-                                        <th class="hidden-480">Privilege</th>
-                                        <th class="hidden-480">Status</th>
+                                        <th>Privilege</th>
+                                        <th>Status</th>
 
                                         <th>Action</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    @foreach($listUser as $item)
-                                        <tr>
-                                            <td class="center">
-                                                <label class="pos-rel">
-                                                    <input type="checkbox" class="ace"/>
-                                                    <span class="lbl"></span>
-                                                </label>
-                                            </td>
-                                            <td class="hidden-480 " width="200">
-                                                <img id="avatar" class="editable" alt="Alex's Avatar"
-                                                     src="{!! asset('admin/images/avatars')."/$item->avatar" !!}"
-                                                     class="img-responsive" width="100em"/>
-                                            </td>
-                                            <td>
-                                                <a href="#">{!! $item->name !!}</a>
-                                            </td>
-                                            <td>{!! $item->email !!}</td>
-
-                                            <td>{!! $item->phone !!}</td>
-                                            <td>{!! $item->address !!}</td>
-                                            @if( $item->accessible ==1)
-                                                <td class="hidden-480">
-                                                    <span class="label label-sm label-success">Admin</span>
+                                    @if( isset($listUser) && $listUser )
+                                        @foreach($listUser as $item)
+                                            <tr>
+                                                <td class="center hidden-xs">
+                                                    <label class="pos-rel">
+                                                        <input type="checkbox" class="ace"/>
+                                                        <span class="lbl"></span>
+                                                    </label>
                                                 </td>
-                                            @else
-                                                <td class="hidden-480">
-                                                    <span class="label label-sm label-info">Super Admin</span>
+                                                <td class=" " width="200">
+                                                    <img id="avatar" class="editable" alt="Alex's Avatar"
+                                                         src="{!! asset('admin/images/avatars')."/$item->avatar" !!}"
+                                                         class="img-responsive" width="100em"/>
                                                 </td>
-                                            @endif
-
-                                            @if( $item->status ==1)
-                                                <td class="hidden-480">
-                                                    <span class="label label-sm label-success">Registed</span>
+                                                <td class="hidden-xs">
+                                                    <a href="#">{!! $item->name !!}</a>
                                                 </td>
-                                            @else
-                                                <td class="hidden-480">
-                                                    <span class="label label-sm label-warning">Waiting</span>
+                                                <td>
+                                                    <a href="#">{!! $item->username !!}</a>
                                                 </td>
-                                            @endif
+                                                <td class="hidden-xs">{!! $item->email !!}</td>
 
-                                            <td class="text-center">
-                                                <div class="hidden-sm hidden-xs btn-group">
-                                                    <a class="btn btn-xs btn-info"
-                                                       href="{!! route('admin.user.edit',['id'=>$item->id]) !!}">
-                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                    </a>
+                                                <td class="hidden-xs">{!! $item->phone !!}</td>
+                                                <td class="hidden-xs">{!! $item->address !!}</td>
+                                                @if( $item->accessible ==1)
+                                                    <td class="">
+                                                        <span class="label label-sm label-success">Admin</span>
+                                                    </td>
+                                                @else
+                                                    <td class="">
+                                                        <span class="label label-sm label-info">Super Admin</span>
+                                                    </td>
+                                                @endif
 
-                                                    <a class="btn btn-xs btn-danger"
-                                                       href="{!! route('admin.user.delete',['id'=>$item->id]) !!}"
-                                                       onclick="confirm('You are Progressing to delete this user, do you want to continues ?')">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                @if( $item->status ==1)
+                                                    <td class="">
+                                                        <span class="label label-sm label-success">Registed</span>
+                                                    </td>
+                                                @else
+                                                    <td class="">
+                                                        <span class="label label-sm label-warning">Waiting</span>
+                                                    </td>
+                                                @endif
+
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-info"
+                                                           href="{!! route('admin.user.edit',['id'=>$item->id]) !!}">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                        </a>
+
+                                                        <a class="btn btn-xs btn-danger"
+                                                           href="{!! route('admin.user.delete',['id'=>$item->id]) !!}"
+                                                           onclick="return confirm('Are you sure to delete this admin?')">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <h3>There no admin here, wait...</h3>
+                                    @endif
+
                                     </tbody>
                                 </table>
+                                <div class="clearfix"></div>
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="paginate">
+                                        <h5 class="pull-left">Total Pages : {{$listUser->lastPage()}}</h5>
+                                        <ul class="pagination pull-right no-margin">
+                                            <li class="">
+                                                <a href="{{$listUser->url(1)}}">
+                                                    <i class="ace-icon fa fa-angle-double-left"></i>
+                                                </a>
+                                            </li>
+                                            <li class="prev {{($listUser->currentPage() == 1) ? 'disabled' : ''}}">
+                                                <a href="{{$listUser->url($listUser->currentPage() - 1)}}">Prev</a>
+                                            </li>
+                                            @for($i=1; $i<=$listUser->lastPage();$i++ )
+                                                <li class="{{ ($listUser->currentPage() == $i) ? 'active' : '' }}">
+                                                    <a href="{{$listUser->url($i)}}">{{$i}}</a>
+                                                </li>
+                                            @endfor
+                                            <li class="next {{($listUser->currentPage() == $listUser->lastPage()) ? 'disabled' : ''}}">
+                                                <a href="{{$listUser->url($listUser->currentPage() + 1)}}">Next</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="{{$listUser->url($listUser->lastPage())}}">
+                                                    <i class="ace-icon fa fa-angle-double-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div><!-- /.span -->
                         </div><!-- /.row -->
                         <!-- PAGE CONTENT ENDS -->

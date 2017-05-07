@@ -25,11 +25,11 @@ class AddProductRequest extends FormRequest
     {
         return [
             'name'=>'required|unique:product,name|max:100',
-            'catid'=>'required',
+            'cat_id'=>'required',
             'price'=>'required|numeric|digits_between:1,10',
             'count'=>'required|numeric',
             'thumbnail'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
-            'listimg'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
+//            'listimg'=>'image|mimes:jpeg,jpg,png,gif|max:10240',
             'desciption'=>'max:300'
         ];
     }
@@ -39,7 +39,7 @@ class AddProductRequest extends FormRequest
             'name.required'=>'Enter Product name',
             'name.unique'=>'This Product name have been used',
             'name.max'=>'This Product name can not more than 100 character',
-            'catid.required'=>'Choose a Category for this product',
+            'cat_id.required'=>'Choose a Category for this product',
             'price.required'=>'Enter the price for thist product',
             'price.numeric'=>'this price is not correct',
             'price.max'=>'this price can not more than 10 digits',

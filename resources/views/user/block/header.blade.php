@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-9 col-md-9">
-                <h5>Chào mừng bạn đã đến với Gif Shop!</h5>
+                <h5>Welcome to GifShop!</h5>
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3">
                 <ul class="social list-inline pull-right">
@@ -30,7 +30,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4">
                 <div class="search">
-                    <input type="text" value="" placeholder="Hãy nhập từ khóa cần tìm" class="text">
+                    <input type="text" value="" placeholder="Enter your keyword to search" class="text">
                     <input type="submit" value="">
                 </div>
             </div>
@@ -39,11 +39,14 @@
                     <div class="dropdown">
                         @if(Auth::guard('simpleUser')->check())
                             <li class="dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
-                                <img class="img-rounded" src="@if(Auth::guard('simpleUser')->user()['avatar']) {!! asset('admin/images/avatars').'/'.Auth::guard('simpleUser')->user()['avatar'] !!}@else{!! asset('user/images/').'/user.png' !!}@endif" width="30" height="30" alt="">
+                                <img class="img-rounded"
+                                     src="@if(Auth::guard('simpleUser')->user()['avatar']) {!! asset('admin/images/avatars').'/'.Auth::guard('simpleUser')->user()['avatar'] !!}@else{!! asset('user/images/').'/user.png' !!}@endif"
+                                     width="30" height="30" alt="">
                                 {!! Auth::guard('simpleUser')->user()['name'] !!}
                                 <span class="caret"></span>
                             </li>
-                            <div class="dropdown-menu text-center" id="dropd" style="margin-top: 69px; border-radius: 0px">
+                            <div class="dropdown-menu text-center" id="dropd"
+                                 style="margin-top: 69px; border-radius: 0px">
                                 <h4><a href="#">Account</a></h4>
                                 <h4><a href="{!! route('simpleUserLogout') !!}">Logout</a></h4>
                             </div>
@@ -57,8 +60,8 @@
                         @endif
 
 
-                        <a href="#">
-                            <li><span class="m_1">Cart</span>&nbsp;
+                        <a href="{{route('getcart')}}">
+                            <li><span class="m_1">Cart</span> ({{Cart::count()}})
                                 <img src="{!! asset('user/images/bag.png') !!}" alt=""/></li>
                         </a>
                     </div>
@@ -72,13 +75,14 @@
     <div class="container">
         <a class="toggleMenu" href="#">Menu</a>
         <ul class="nav">
-            <li class="active"><a href="{!! route('gethome') !!}" data-hover="Home">TRANG CHỦ</a></li>
-            <li><a href="about.html" data-hover="About Us">GIỚI THIỆU</a></li>
-            <li><a href="" data-hover="Careers">KHÁCH HÀNG</a></li>
-            <li><a href="" data-hover="Contact Us">LIÊN HỆ</a></li>
-            <li><a href="" data-hover="Company Profile">HỒ SƠ</a></li>
-            <li><a href="" data-hover="Company Registration">DANH MỤC</a></li>
-            <li><a href="wishlist.html" data-hover="Wish List">Wish List</a></li>
+            <li class="active"><a href="{!! route('gethome') !!}" data-hover="Home">HOME</a></li>
+            <li><a href="{{route('lastest')}}" data-hover="Careers">LASTEST</a></li>
+            <li><a href="{{route('discount')}}" data-hover="Company Profile">DISCOUNT</a></li>
+            <li><a href="{{route('popular')}}" data-hover="Company Registration">POPULAR</a></li>
+            <li><a href="{{route('about')}}" data-hover="About Us">ABOUT US</a></li>
+            <li><a href="{{route('getcontact')}}" data-hover="Contact Us">CONTACT</a></li>
+            <li><a href="" data-hover="Contact Us">NEWS</a></li>
+
         </ul>
         <script type="text/javascript" src="{{asset('user/js/nav.js')}}"></script>
     </div><!-- end h_menu4 -->

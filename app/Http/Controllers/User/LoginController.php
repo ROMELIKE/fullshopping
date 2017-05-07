@@ -20,6 +20,7 @@ class LoginController extends Controller
             'username' => strip_tags(trim($request->username)),
             'password' => strip_tags(trim($request->password)),
             'accessible' => 0,
+            'status' => 1,
         ];
         if (Auth::guard('simpleUser')->attempt($login)) {
             return redirect()->route('gethome')->with([

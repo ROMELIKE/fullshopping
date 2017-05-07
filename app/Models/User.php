@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Business\resultObject;
+use App\Business\ResultObject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
@@ -49,60 +49,61 @@ class User extends Authenticatable
     }
 
     //--------------------------------------------------------------------------
-
-
-    public function AddNewUser($array)
+    public function AddNewUser($user)
     {
         $param = [];
-        if (isset($array['name']) && $array['name']) {
-            $param['name'] = $array['name'];
+        if (isset($user->name) && $user->name) {
+            $param['name'] = $user->name;
         } else {
-            $param['name'] = 'Unknow';
+            $param['name'] = 'Unknow User';
         }
-        if (isset($array['username']) && $array['username']) {
-            $param['username'] = $array['username'];
+        if (isset($user->username) && $user->username) {
+            $param['username'] = $user->username;
         } else {
-            $param['name'] = 'Unknow';
+            $param['username'] = null;
         }
-        if (isset($array['email']) && $array['email']) {
-            $param['email'] = $array['email'];
+        if (isset($user->email) && $user->email) {
+            $param['email'] = $user->email;
         } else {
             $param['email'] = null;
         }
-        if (isset($array['password']) && $array['password']) {
-            $param['password'] = $array['password'];
+        if (isset($user->password) && $user->password) {
+            $param['password'] = $user->password;
         } else {
             $param['password'] = null;
         }
-        if (isset($array['phone']) && $array['phone']) {
-            $param['phone'] = $array['phone'];
+        if (isset($user->accessible) && $user->accessible) {
+            $param['accessible'] = $user->accessible;
+        } else {
+            $param['accessible'] = 0;
+        }
+        if (isset($user->phone) && $user->phone) {
+            $param['phone'] = $user->phone;
         } else {
             $param['phone'] = null;
         }
-        if (isset($array['address']) && $array['address']) {
-            $param['address'] = $array['address'];
+        if (isset($user->address) && $user->address) {
+            $param['address'] = $user->address;
         } else {
             $param['address'] = null;
         }
-        if (isset($array['avatar']) && $array['avatar']) {
-            $param['avatar'] = $array['avatar'];
+        if (isset($user->avatar) && $user->avatar) {
+            $param['avatar'] = $user->avatar;
         } else {
             $param['avatar'] = null;
         }
-        if (isset($array['date']) && $array['date']) {
-            $param['date'] = $array['date'];
+        if (isset($user->date) && $user->date) {
+            $param['date'] = $user->date;
         } else {
             $param['date'] = null;
         }
-        if (isset($array['status']) && $array['status']) {
+        if (isset($user->status) && $user->status) {
             $param['status'] = 1;
         } else {
             $param['status'] = 0;
         }
-        $param['accessible'] = 0;
-        $param['accessible'] = 0;
 
-        $result = new resultObject();
+        $result = new ResultObject();
         try {
             $sql = DB::table($this->table)->insertGetId($param);
             if ($sql) {
@@ -115,7 +116,7 @@ class User extends Authenticatable
                 $result->result = $sql;
             }
         } catch (\Exception $exception) {
-            $result->message = 'SQL Exception!';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -128,61 +129,47 @@ class User extends Authenticatable
      * @param string $orderBy
      * @param string $access
      *
-     * @return resultObject
+     * @return ResultObject
      */
-    public function getListUser($orderBy = 'ASC', $access = '0')
+    public function getListUser($orderBy = 'DESC', $access = '0')
     {
-        $result = new resultObject();
-        if ($access == 'admin') {
-            try {
+        $result = new ResultObject();
+        //if i want to get list Addmin.
+        try {
+            if ($access == 'admin') {
                 $sql = DB::table($this->table)->where('accessible', '!=', 0)
-                    ->orderBy('date', $orderBy)->get()
-                    ->toArray();
-                if ($sql) {
-                    $result->message = 'Get Adminlist successfully!!';
-                    $result->messageCode = 1;
-                    $result->result = $sql;
-                } else {
-                    $result->message = 'Failure, get Adminlist Error!!';
-                    $result->messageCode = 0;
-                    $result->result = $sql;
-                }
-            } catch (\Exception $exception) {
-                $result->message = 'SQL Exception!';
-                $result->messageCode = 0;
-            }
-        } else {
-            try {
+                    ->orderBy('date', $orderBy)->paginate(6);
+            } else {
+                //if i want to get list SimpleUser.
                 $sql = DB::table($this->table)->where('accessible', $access)
-                    ->orderBy('date', $orderBy)->get()
-                    ->toArray();
-                if ($sql) {
-                    $result->message = 'Get Userlist successfully!!';
-                    $result->messageCode = 1;
-                    $result->result = $sql;
-                } else {
-                    $result->message = 'Failure, get Userlist Error!!';
-                    $result->messageCode = 0;
-                    $result->result = $sql;
-                }
-            } catch (\Exception $exception) {
-                $result->message = 'SQL Exception!';
-                $result->messageCode = 0;
+                    ->orderBy('date', $orderBy)->paginate(6);
             }
+            if ($sql) {
+                $result->message = 'Get Userlist successfully!!';
+                $result->messageCode = 1;
+                $result->result = $sql;
+            } else {
+                $result->message = 'Failure, get Userlist Error!!';
+                $result->messageCode = 0;
+                $result->result = $sql;
+            }
+        } catch (\Exception $exception) {
+            $result->message = $exception->getMessage();
+            $result->messageCode = 0;
         }
-
         return $result;
     }
 
     /**
      * Function: Delete User
+     *
      * @param $id
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function deleteUser($id)
     {
-        $result = new resultObject();
+        $result = new ResultObject();
         try {
             $sql = DB::table($this->table)->where('id', $id)->delete();
             if ($sql) {
@@ -195,7 +182,7 @@ class User extends Authenticatable
                 $result->result = $sql;
             }
         } catch (\Exception $exception) {
-            $result->message = 'SQL Exception!';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -204,13 +191,14 @@ class User extends Authenticatable
 
     /**
      * Function: get user by id
+     *
      * @param $id
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function getUserById($id)
     {
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
             $sql = DB::table($this->table)->where('id', $id)->first();
             if ($sql) {
@@ -225,7 +213,7 @@ class User extends Authenticatable
                 $result->numberOfResult = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
             $result->numberOfResult = 0;
         }
@@ -235,15 +223,16 @@ class User extends Authenticatable
 
     /**
      * Function:check 'username' is exist?
+     *
      * @param $name
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function checkUsernameExist($name)
     {
-        $result = new resultObject();
+        $result = new ResultObject();
         try {
-            $sql = DB::table($this->table)->where('name', $name)->get();
+            $sql = DB::table($this->table)->where('username', $name)->get();
             if (count($sql)) {
                 $result->messageCode = 0;
                 $result->message
@@ -253,7 +242,7 @@ class User extends Authenticatable
                 $result->message = 'This Username Can be use.';
             }
         } catch (\Exception $exception) {
-            $result->message = 'SQL exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -262,39 +251,49 @@ class User extends Authenticatable
 
     /**
      * Function: Update User.
+     *
      * @param $array
      *
-     * @return resultObject
+     * @return ResultObject
      */
-    public function updateUser($array)
+    public function updateUser($user)
     {
         $param = [];
-        if (isset($array['name']) && $array['name']) {
-            $param['name'] = $array['name'];
+        if (isset($user->name) && $user->name) {
+            $param['name'] = $user->name;
         }
-        if (isset($array['username']) && $array['username']) {
-            $param['username'] = $array['username'];
+        if (isset($user->username) && $user->username) {
+            $param['username'] = $user->username;
         }
-        if (isset($array['address']) && $array['address']) {
-            $param['address'] = $array['address'];
+        if (isset($user->address) && $user->address) {
+            $param['address'] = $user->address;
         }
-        if (isset($array['email']) && $array['email']) {
-            $param['email'] = $array['email'];
+        if (isset($user->email) && $user->email) {
+            $param['email'] = $user->email;
         }
-        if (isset($array['phone']) && $array['phone']) {
-            $param['phone'] = $array['phone'];
+        if (isset($user->phone) && $user->phone) {
+            $param['phone'] = $user->phone;
         }
-        if (isset($array['avatar']) && $array['avatar']) {
-            $param['avatar'] = $array['avatar'];
+        if (isset($user->avatar) && $user->avatar) {
+            $param['avatar'] = $user->avatar;
         }
-        if (isset($array['status']) && $array['status']) {
+        if (isset($user->accessible) && $user->accessible) {
+            $param['accessible'] = $user->accessible;
+        }
+        if (isset($user->date) && $user->date) {
+            $param['date'] = $user->date;
+        }
+        if (isset($user->password) && $user->password) {
+            $param['password'] = $user->password;
+        }
+        if (isset($user->status) && $user->status) {
             $param['status'] = 1;
         } else {
             $param['status'] = 0;
         }
-        $result = new resultObject();
+        $result = new ResultObject();
         try {
-            $sql = DB::table($this->table)->where('id', $array['id'])
+            $sql = DB::table($this->table)->where('id', $user->id)
                 ->update($param);
 
             if ($sql) {
@@ -303,10 +302,10 @@ class User extends Authenticatable
                 $result->result = $sql;
             } else {
                 $result->messageCode = 0;
-                $result->message = 'Failure, Username Can not be update';
+                $result->message = 'Nothing was updated';
             }
         } catch (\Exception $exception) {
-            $result->message = 'SQL exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 

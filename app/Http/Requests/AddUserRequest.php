@@ -28,7 +28,8 @@ class AddUserRequest extends FormRequest
             'username' => 'required|unique:user,username',
             'email' => 'required|email',
             'password' => 'required|min:4',
-            'repassword' => 'required|same:password'
+            'repassword' => 'required|same:password',
+            'avatar' => 'image|mimes:jpeg,jpg,png,gif|max:10240'
         ];
     }
 

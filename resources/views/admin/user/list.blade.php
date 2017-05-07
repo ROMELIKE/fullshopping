@@ -38,6 +38,15 @@
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             List
                         </small>
+                        <small>
+                            <a href="{!! route('admin.product.list') !!}">Total: <span  style="color: red;">{{count($listUser)}}</span></a>
+                        </small>
+                        <small>
+                            <a href="{!! route('admin.product.list') !!}">Waiting: <span  style="color: red;">{{count($listUser)}}</span></a>
+                        </small>
+                        <small>
+                            <a href="{!! route('admin.product.list') !!}">Censored: <span  style="color: red;">{{count($listUser)}}</span></a>
+                        </small>
                         <a href="{!! route('admin.user.add') !!}" class="btn btn-xs btn-success pull-right btn-lg">
                             <i class="ace-icon fa fa-plus-circle bigger-120"></i>
                         </a>
@@ -53,195 +62,122 @@
                                 <table id="simple-table" class="table  table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="center">
+                                        <th class="center hidden-xs">
                                             <label class="pos-rel">
                                                 <input type="checkbox" class="ace"/>
                                                 <span class="lbl"></span>
                                             </label>
                                         </th>
-                                        <th class="hidden-480">Avatar</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>
+                                        <th class="">Avatar</th>
+                                        <th class="hidden-xs">Full Name</th>
+                                        <th>Username</th>
+                                        <th class="hidden-xs">Email</th>
+                                        <th class="hidden-xs">
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Phone
                                         </th>
-                                        <th>
+                                        <th class="hidden-xs">
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Address
                                         </th>
-                                        <th class="hidden-480">Status</th>
+                                        <th class="">Status</th>
 
                                         <th>Action</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    @foreach($listUser as $item)
-                                        <tr>
-                                            <td class="center">
-                                                <label class="pos-rel">
-                                                    <input type="checkbox" class="ace"/>
-                                                    <span class="lbl"></span>
-                                                </label>
-                                            </td>
-                                            <td class="hidden-480 " width="200">
-													{{--<img id="avatar" class="editable" alt="Alex's Avatar"--}}
-                                                         {{--src="{!! asset('admin/images/avatars/profile-pic.jpg') !!}" width="25%"/>--}}
-                                                <img id="avatar" class="editable img-responsive" alt="Alex's Avatar"
-                                                     src="@if(isset($item->avatar)&& $item->avatar){!! asset('admin/images/avatars/')."/".$item->avatar!!}@else{!! asset('admin/images/avatars').'/profile-pic.jpg' !!}@endif"
-                                                     name="avatar"  class="img-responsive" width="100em"/>
-                                                <input type="hidden" name="current_avatar" value="{!! $item->avatar !!}">
-                                            </td>
-                                            <td>
-                                                <a href="#">{!! $item->name !!}</a>
-                                            </td>
-                                            <td>{!! $item->email !!}</td>
-
-                                            <td>{!! $item->phone !!}</td>
-                                            <td>{!! $item->address !!}</td>
-                                            @if( $item->status ==1)
-                                                <td class="hidden-480">
-                                                    <span class="label label-sm label-success">Registed</span>
+                                    @if( isset($listUser) && $listUser )
+                                        @foreach($listUser as $item)
+                                            <tr class="text-center">
+                                                <td class="center hidden-xs">
+                                                    <label class="pos-rel">
+                                                        <input type="checkbox" class="ace"/>
+                                                        <span class="lbl"></span>
+                                                    </label>
                                                 </td>
-                                            @else
-                                                <td class="hidden-480">
-                                                    <span class="label label-sm label-warning">Waiting</span>
+                                                <td class="" width="200">
+                                                    {{--<img id="avatar" class="editable" alt="Alex's Avatar"--}}
+                                                    {{--src="{!! asset('admin/images/avatars/profile-pic.jpg') !!}" width="25%"/>--}}
+                                                    <img id="avatar" class="editable img-responsive" alt="Alex's Avatar"
+                                                         src="@if(isset($item->avatar)&& $item->avatar){!! asset('admin/images/avatars/')."/".$item->avatar!!}@else{!! asset('admin/images/avatars').'/profile-pic.jpg' !!}@endif"
+                                                         name="avatar"  class="img-responsive" width="100em"/>
+                                                    <input type="hidden" name="current_avatar" value="{!! $item->avatar !!}">
                                                 </td>
-                                            @endif
+                                                <td class="hidden-xs">
+                                                    <a href="#">{!! $item->name !!}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">{!! $item->username !!}</a>
+                                                </td>
+                                                <td class="hidden-xs">{!! $item->email !!}</td>
 
-                                            <td class="text-center">
-                                                <div class="hidden-sm hidden-xs btn-group">
-                                                    <a class="btn btn-xs btn-info"
-                                                       href="{!! route('admin.user.edit',['id'=>$item->id]) !!}">
-                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                    </a>
+                                                <td class="hidden-xs">{!! $item->phone !!}</td>
+                                                <td class="hidden-xs">{!! $item->address !!}</td>
+                                                @if( $item->status ==1)
+                                                    <td class="">
+                                                        <span class="label label-sm label-success">Registed</span>
+                                                    </td>
+                                                @else
+                                                    <td class="">
+                                                        <span class="label label-sm label-warning">Waiting</span>
+                                                    </td>
+                                                @endif
 
-                                                    <a class="btn btn-xs btn-danger"
-                                                       href="{!! route('admin.user.delete',['id'=>$item->id]) !!}"
-                                                       onclick="confirm('You are Progressing to delete this user, do you want to continues ?')">
-                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-info"
+                                                           href="{!! route('admin.user.edit',['id'=>$item->id]) !!}">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                        </a>
+
+                                                        <a class="btn btn-xs btn-danger"
+                                                           href="{!! route('admin.user.delete',['id'=>$item->id]) !!}"
+                                                           onclick="return confirm('Are you sure to delete this user?')">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <h3>There no user here, wait...</h3>
+                                    @endif
+
                                     </tbody>
                                 </table>
-                            </div><!-- /.span -->
-                        </div><!-- /.row -->
-                        <div id="modal-table" class="modal fade" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header no-padding">
-                                        <div class="table-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                <span class="white">&times;</span>
-                                            </button>
-                                            Results for "Latest Registered Domains
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-body no-padding">
-                                        <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-                                            <thead>
-                                            <tr>
-                                                <th>Domain</th>
-                                                <th>Price</th>
-                                                <th>Clicks</th>
-
-                                                <th>
-                                                    <i class="ace-icon fa fa-clock-o bigger-110"></i>
-                                                    Update
-                                                </th>
-                                            </tr>
-                                            </thead>
-
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">ace.com</a>
-                                                </td>
-                                                <td>$45</td>
-                                                <td>3,330</td>
-                                                <td>Feb 12</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">base.com</a>
-                                                </td>
-                                                <td>$35</td>
-                                                <td>2,595</td>
-                                                <td>Feb 18</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">max.com</a>
-                                                </td>
-                                                <td>$60</td>
-                                                <td>4,400</td>
-                                                <td>Mar 11</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">best.com</a>
-                                                </td>
-                                                <td>$75</td>
-                                                <td>6,500</td>
-                                                <td>Apr 03</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">pro.com</a>
-                                                </td>
-                                                <td>$55</td>
-                                                <td>4,250</td>
-                                                <td>Jan 21</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="modal-footer no-margin-top">
-                                        <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
-                                            <i class="ace-icon fa fa-times"></i>
-                                            Close
-                                        </button>
-
+                                <div class="clearfix"></div>
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="paginate">
+                                        <h5 class="pull-left">Total Pages : {{$listUser->lastPage()}}</h5>
                                         <ul class="pagination pull-right no-margin">
-                                            <li class="prev disabled">
-                                                <a href="#">
+                                            <li class="">
+                                                <a href="{{$listUser->url(1)}}">
                                                     <i class="ace-icon fa fa-angle-double-left"></i>
                                                 </a>
                                             </li>
-
-                                            <li class="active">
-                                                <a href="#">1</a>
+                                            <li class="prev {{($listUser->currentPage() == 1) ? 'disabled' : ''}}">
+                                                <a href="{{$listUser->url($listUser->currentPage() - 1)}}">Prev</a>
                                             </li>
-
-                                            <li>
-                                                <a href="#">2</a>
+                                            @for($i=1; $i<=$listUser->lastPage();$i++ )
+                                                <li class="{{ ($listUser->currentPage() == $i) ? 'active' : '' }}">
+                                                    <a href="{{$listUser->url($i)}}">{{$i}}</a>
+                                                </li>
+                                            @endfor
+                                            <li class="next {{($listUser->currentPage() == $listUser->lastPage()) ? 'disabled' : ''}}">
+                                                <a href="{{$listUser->url($listUser->currentPage() + 1)}}">Next</a>
                                             </li>
-
-                                            <li>
-                                                <a href="#">3</a>
-                                            </li>
-
-                                            <li class="next">
-                                                <a href="#">
+                                            <li class="">
+                                                <a href="{{$listUser->url($listUser->lastPage())}}">
                                                     <i class="ace-icon fa fa-angle-double-right"></i>
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div>
-
+                                </div>
+                            </div><!-- /.span -->
+                        </div><!-- /.row -->
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->

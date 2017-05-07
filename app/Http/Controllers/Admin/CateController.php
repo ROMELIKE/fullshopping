@@ -6,6 +6,7 @@ use App\Http\Requests\CateAddRequest;
 use App\Models\Category;
 use DB;
 use App\Http\Controllers\Controller;
+use App\Business;
 use League\Flysystem\Exception;
 
 class CateController extends Controller
@@ -17,8 +18,9 @@ class CateController extends Controller
      */
     public function getAdd()
     {
-        //lấy ra danh sách các list category (for choose the parrent).
         $model = new Category();
+
+        //get the list of category (for choose the parrent).
         $list = $model->getCategoryList()->result;
 
         return view('admin.category.add', compact(['list']));
@@ -33,19 +35,32 @@ class CateController extends Controller
      */
     public function postAdd(CateAddRequest $request)
     {
-        $array = [
-            'name' => strip_tags(trim($request->catename)),
-            'parrent_id' => $request->parrent,
-            'status' => $request->switch_field_1,
-            'date' => date("Y-m-d H:i:s"),
-            'alias' => changeTitle(strip_tags(trim($request->catename)))
-        ];
-        //gọi đến model để lưu:
-        $model = new Category();
-        $check = $model->checkCategoryExist($array['name']);
+        $category = new Business\CategoryObject();
 
+        if (isset($request->catename) && $request->catename) {
+            $category->name = strip_tags(trim($request->catename));
+            $category->alias
+                = changeTitle(strip_tags(trim($request->catename)));
+        }
+        if (isset($request->parrent_id) && $request->parrent_id) {
+            $category->parrent_id = $request->parrent_id;
+        }else{
+            $category->parrent_id = 0;
+        }
+        if (isset($request->status) && $request->status) {
+            $category->status = 1;
+        } else {
+            $category->status = 0;
+        }
+
+        $category->date = date("Y-m-d H:i:s");
+
+        //call to model to init function
+        $model = new Category();
+        //check category is exist?
+        $check = $model->checkCategoryExist($category->name);
         if ($check->messageCode) {
-            if ($result = $model->addNewCategory($array)) {
+            if ($result = $model->addNewCategory($category)) {
                 $level = 'success';
                 $message = $result->message;
             } else {
@@ -72,7 +87,7 @@ class CateController extends Controller
      */
     public function getList()
     {
-        //lấy ra tất cả các danh sách category.
+        //get list of all category:
         $model = new Category();
         $list = $model->getCategoryList('DESC')->result;
 
@@ -95,7 +110,6 @@ class CateController extends Controller
     public function getEdit($id)
     {
         $model = new Category();
-
         //check: input "$id" is exist?
         $checkId = $model->getCategoryById($id);
         if ($checkId->numberOfResult) {
@@ -111,7 +125,6 @@ class CateController extends Controller
                 'message' => 'This category is not exits!'
             ]);
         }
-
     }
 
     /**
@@ -125,32 +138,39 @@ class CateController extends Controller
      */
     public function postEdit(CateAddRequest $request, $id)
     {
-        //Get request inputs.
-        $name = strip_tags(trim($request->catename));
-        $parrent_id = $request->parrent;
-        $status = $request->switch_field_1;
-
         $model = new Category();
-        //check the exist name: xem tên truyền vào có phải là tên của id này ko?
-        if ($name == $model->getCategoryById($id)->result->name) {
-            //admin does not want to RENAME.
-            $array = [
-                'parrent_id' => $request->parrent,
-                'status' => $request->switch_field_1,
-                'id' => $id
-            ];
+        //Get request inputs.
+        $nameInput = strip_tags(trim($request->catename));
+        $nameDatabase = $model->getCategoryById($id)->result->name;
+
+        $category = new Business\CategoryObject();
+
+        if (isset($request->parrent_id) && $request->parrent_id) {
+            $category->parrent_id = $request->parrent_id;
         } else {
-            //admin want to RENAME, update all.
-            $array = [
-                'name' => strip_tags(trim($request->catename)),
-                'parrent_id' => $request->parrent,
-                'status' => $request->switch_field_1,
-                'alias' => changeTitle(strip_tags(trim($request->catename))),
-                'id' => $id
-            ];
+            $category->parrent_id = 0;
         }
-        //check the category updating .
-        if ($result = $model->upDateCategory($array)) {
+        if (isset($request->status) && $request->status) {
+            $category->status = 1;
+        } else {
+            $category->status = 0;
+        }
+        if (isset($request->catename) && $request->catename) {
+            $category->name = $request->catename;
+            //check the admin rename this user or not.
+            if ($nameInput != $nameDatabase) {
+                //admin want to RENAME, update all
+                $category->name = strip_tags(trim($request->catename));
+                $category->alias
+                    = changeTitle(strip_tags(trim($request->catename)));
+            } else {
+            }
+        } else {
+            $category->name = null;
+        }
+        $category->id = $id;
+        //check the category updating process .
+        if ($result = $model->upDateCategory($category)) {
             $level = 'success';
             $message = $result->message;
 
@@ -185,17 +205,25 @@ class CateController extends Controller
         if ($model->getCategoryById($id)->numberOfResult) {
 
             //check this category is parent_id ?
+
             if (!$model->checkCategoryIsParrent($id)->messageCode) {
                 $level = 'warning';
                 $message
                     = 'This category a parrent category, delete childrens first!';
             } else {
-                if ($model->deleteCategory($id)->messageCode) {
-                    $level = 'success';
-                    $message = 'Delete category successfully!!';
-                } else {
+                //check this category have product ?
+                if ($model->getProductByCateId($id)->numberOfResult) {
                     $level = 'warning';
-                    $message = 'Fail to delete category!';
+                    $message
+                        = 'This category has product, delete product first!';
+                } else {
+                    if ($model->deleteCategory($id)->messageCode) {
+                        $level = 'success';
+                        $message = 'Delete category successfully!!';
+                    } else {
+                        $level = 'warning';
+                        $message = 'Fail to delete category!';
+                    }
                 }
             }
         } else {

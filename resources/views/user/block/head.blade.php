@@ -11,6 +11,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{{asset('user/css/style.css')}}" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <!--webfont-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href='http://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="{{asset('user/js/jquery-1.11.1.min.js')}}"></script>
 <script src="{{asset('user/js/responsiveslides.min.js')}}"></script>
@@ -55,3 +56,4 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 </script>
 <script type="text/javascript" src="{{asset('user/js/hover_pack.js')}}"></script>
+<script src="{{asset('admin/js/ownjquery.js')}}"></script>

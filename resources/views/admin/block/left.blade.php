@@ -1,4 +1,5 @@
-<div id="sidebar" class="sidebar responsive ace-save-state">
+<div id="sidebar" class="sidebar responsive ace-save-state" style="position: fixed;
+    top: 45px; height: 100%">
     <script type="text/javascript">
         try {
             ace.settings.loadState('sidebar')
@@ -59,7 +60,7 @@
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-pencil-square-o"></i>
-                <span class="menu-text"> Member </span>
+                <span class="menu-text"> Customer </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
@@ -126,7 +127,11 @@
                         <i class="menu-icon fa fa-caret-right"></i>
                         Advertises
                     </a>
-                    <a href="form-elements.html">
+                    <a href="{{ route('config.menu') }}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Menus
+                    </a>
+                    <a href="">
                         <i class="menu-icon fa fa-caret-right"></i>
                         footer
                     </a>
@@ -138,24 +143,11 @@
             </ul>
         </li>
         <li class="">
-            <a href="#" class="dropdown-toggle">
+            <a href="{{route('contact.list')}}">
                 <i class="menu-icon fa fa-envelope-o"></i>
-                <span class="menu-text"> Emails </span>
-                <b class="arrow fa fa-angle-down"></b>
+                <span class="menu-text">Contacts</span>
+                <b class="arrow fa fa-angle-right"></b>
             </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        List Admin
-                    </a>
-                    <a href="form-elements.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Add More
-                    </a>
-                </li>
-            </ul>
         </li>
         <li class="">
             <a href="#" class="dropdown-toggle">
@@ -166,27 +158,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        List Transacion
-                    </a>
-                    <a href="form-elements.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Add More
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-pie-chart"></i>
-                <span class="menu-text"> Statistic</span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href="">
+                    <a href="{{route('transaction.list')}}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         List Transacion
                     </a>
@@ -206,21 +178,22 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="">
+                    <a href="{{route('list.new')}}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        News
+                        All Posts
                     </a>
-                    <a href="form-elements.html">
+                    <a href="{{route('get.add.new')}}">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Add More
+                        Add New
                     </a>
                 </li>
             </ul>
         </li>
+
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-user-plus"></i>
-                <span class="menu-text"> Recruitment</span>
+                <i class="menu-icon fa fa-cc-paypal"></i>
+                <span class="menu-text"> E-shopping</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
@@ -228,7 +201,7 @@
                 <li class="">
                     <a href="">
                         <i class="menu-icon fa fa-caret-right"></i>
-                        News
+                        List Transacion
                     </a>
                     <a href="form-elements.html">
                         <i class="menu-icon fa fa-caret-right"></i>
@@ -239,8 +212,48 @@
         </li>
         <li class="">
             <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-cc-paypal"></i>
-                <span class="menu-text"> E-shopping</span>
+                <i class="menu-icon fa fa-picture-o"></i>
+                <span class="menu-text"> Media</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="{{route('media.list')}}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Transacion
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-file"></i>
+                <span class="menu-text"> Pages</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="">
+                    <a href="">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        List Transacion
+                    </a>
+                    <a href="form-elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Add More
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-comments-o"></i>
+                <span class="menu-text"> Email Marketing</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>

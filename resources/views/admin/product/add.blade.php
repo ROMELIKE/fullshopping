@@ -74,10 +74,10 @@
                                        for="form-field-4">Categories</label>
 
                                 <div class="col-sm-9">
-                                    <select name="catid" id="">
+                                    <select name="cat_id" id="">
                                         <option value="">Choose a Category</option>
                                         @foreach($categoryList as $item)
-                                            <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                            <option value="{!! $item->id !!}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@
 
                                 <div class="col-sm-9">
                                     <input type="number" id="form-field-1" placeholder="Product Price"
-                                           class="col-xs-10 col-sm-5" name="price" value="{!! old('price') !!}"/>
+                                           class="col-xs-10 col-sm-5" name="price" value="{{old('price')}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -97,7 +97,7 @@
 
                                 <div class="col-sm-9">
                                     <input type="number" id="form-field-1" placeholder="Percent discount"
-                                           class="col-xs-10 col-sm-5" name="discount" value="{!! old('discount') !!}"/>
+                                           class="col-xs-10 col-sm-5" name="discount" value="{{old('discount')}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -105,7 +105,7 @@
 
                                 <div class="col-sm-9">
                                     <input type="number" id="form-field-1" placeholder="Number product"
-                                           class="col-xs-10 col-sm-5" name="count" value="{!! old('count') !!}"/>
+                                           class="col-xs-10 col-sm-5" name="count" value="{{old('count')}}"/>
                                 </div>
                             </div>
 
@@ -114,7 +114,7 @@
 
                                 <div class="col-sm-9">
 											<span class="input-icon">
-                                                <textarea name="description" id="form-field-icon-1" cols="46" rows="5">{!! old('description') !!}
+                                                <textarea name="description" id="form-field-icon-1" cols="46" rows="5">{{old('description')}}
                                                 </textarea>
 												<i class="ace-icon fa fa-leaf blue"></i>
 											</span>
@@ -160,7 +160,7 @@
                                 <div class="col-sm-9">
 											<span class="input-icon">
 												<label>
-                                                <input name="switch-field-1" class="ace ace-switch ace-switch-3"
+                                                <input class="ace ace-switch ace-switch-3"
                                                        type="checkbox" name="status">
                                                 <span class="lbl"></span>
                                             </label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Business\ProductObject;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\EditProductRequest;
 use App\Models\Category;
@@ -37,20 +38,32 @@ class ProductController extends Controller
      */
     public function postAdd(AddProductRequest $request)
     {
+        $product = new ProductObject();
         $model = new Product();
 
         //get input variables.
-        $array = [
-            'name' => strip_tags(trim($request->name)),
-            'alias' => changeTitle(strip_tags(trim($request->name))),
-            'cate_id' => $request->catid,
-            'price' => trim($request->price),
-            'discount'=>trim($request->discount),
-            'count' => trim($request->count),
-            'description' => htmlentities(trim($request->description)),
-            'status' => $request->status,
-            'date' => date("Y-m-d H:i:s")
-        ];
+        if (isset($request->name) && $request->name) {
+            $product->name= strip_tags(trim($request->name));
+            $product->alias = changeTitle(strip_tags(trim($request->name)));
+        }
+        if (isset($request->cat_id) && $request->cat_id) {
+            $product->cate_id = $request->cat_id;
+        }
+        if (isset($request->price) && $request->price) {
+            $product->price = trim($request->price);
+        }
+        if (isset($request->discount) && $request->discount) {
+            $product->discount = trim($request->discount);
+        }
+        if (isset($request->description) && $request->description) {
+            $product->desciption = htmlentities(trim($request->description));
+        }
+        if (isset($request->status) && $request->status) {
+            $product->status = 1;
+        } else {
+            $product->status = 0;
+        }
+        $product->date = date("Y-m-d H:i:s");
 
         //handle thumbnail of product:
         if (isset($request->thumbnail) && $request->thumbnail) {
@@ -59,12 +72,11 @@ class ProductController extends Controller
             $thumbnailNew = $thumbnail.date("y-m-d H:i:s");
 
             //save image name in Array:
-            $array['thumbnail'] = $thumbnail;
+            $product->image = $thumbnail;
 
             //move image to appropriate Folder:
             $request->thumbnail->move('admin/images/products/', $thumbnail);
         }
-
         //handle list of images (detail images):
         if (isset($request->listimg) && $request->listimg) {
             $listImg = $request->listimg;
@@ -84,12 +96,12 @@ class ProductController extends Controller
             $jsonEncodeArrayImage = json_encode($arrayImg);
 
             //save json in array.
-            $array['listimg'] = $jsonEncodeArrayImage;
+            $product->listimg = $jsonEncodeArrayImage;
         }
 
 
         //Save in database, get return values
-        $result = $model->addProduct($array);
+        $result = $model->addProduct($product);
 
         if ($result->messageCode) {
             $level = 'success';
@@ -148,52 +160,55 @@ class ProductController extends Controller
      */
     public function postEdit(EditProductRequest $request, $id)
     {
+        $product = new ProductObject();
         $model = new Product();
 
-        //get all request variable.
-        $array = [
-            'alias' => changeTitle(strip_tags(trim($request->name))),
-            'cate_id' => $request->cate_id,
-            'price' => $request->price,
-            'discount'=>trim($request->discount),
-            'count' => strip_tags(trim($request->count)),
-            'desciption' => htmlentities($request->desciption),
-            'status' => $request->status,
-            'date' => date("y-m-d H:i:m"),
-            'id' => $id
-        ];
-
+        if (isset($request->name) && $request->name) {
+            $product->name = strip_tags(trim($request->name));
+            $product->alias = changeTitle(strip_tags(trim($request->name)));
+        }
+        if (isset($request->cat_id) && $request->cat_id) {
+            $product->cate_id = $request->cat_id;
+        }
+        if (isset($request->username) && $request->username) {
+            $product->username = strip_tags(trim($request->username));
+        }
+        if (isset($request->price) && $request->price) {
+            $product->price = trim($request->price);
+        }
+        if (isset($request->discount) && $request->discount) {
+            $product->discount = trim($request->discount);
+        }
+        if (isset($request->description) && $request->description) {
+            $product->desciption = htmlentities(trim($request->description));
+        }
+        if (isset($request->status) && $request->status) {
+            $product->status = 1;
+        } else {
+            $product->status = 0;
+        }
+        $product->date = date("Y-m-d H:i:s");
+        $product->id = $id;
         //Handle  thumbnail input(single image):
         if (isset($request->thumbnail) && $request->thumbnail) {
-
-            $thumbnail = $request->thumbnail->getClientOriginalName();
-
-            $thumbnailNew = $thumbnail.date("y-m-d H:i:s");
-
-            //save image name in Array:
-            $array['thumbnail'] = $thumbnail;
-
-            //move image to appropriate Folder:
-            $request->thumbnail->move('admin/images/products/', $thumbnail);
-
+            $newThumbnail = imageHandle($request->thumbnail);
             //remove current thumbnail:
             $current_thumbnail = 'admin/images/products/'
                 .$request->current_thumbnail;
             if (File::exists($current_thumbnail)) {
                 File::delete($current_thumbnail);
             }
+            //save image name in Array:
+            $product->image = $newThumbnail;
         }
-
         //Handle listimg input (list images):
         if (isset($request->listimg) && $request->listimg) {
             $listImg = $request->listimg;
             $arrayImg = [];
             foreach ($listImg as $item) {
                 //get the image name (one by one).
-                $imageName = $item->getClientOriginalName();
 
-                //move image to folder (one by one).
-                $item->move('admin/images/product_list', $imageName);
+                $imageName = imageHandle($item,'admin/images/product_list');
 
                 //save image in array (one by one).
                 $arrayImg[] = $imageName;
@@ -209,7 +224,7 @@ class ProductController extends Controller
             $jsonEncodeArrayImage = json_encode($arrayImg);
 
             //save json in array.
-            $array['listimg'] = $jsonEncodeArrayImage;
+            $product->listimg = $jsonEncodeArrayImage;
         }/*end handle listimg*/
 
 
@@ -219,11 +234,11 @@ class ProductController extends Controller
             //admin do not need to re name this product
         } else {
             //admin need to re name this product
-            $array['name'] = strip_tags(trim($request->name));
+            $product->name = strip_tags(trim($request->name));
         }
 
         //save in database and check return values.
-        $result = $model->updateProduct($array);
+        $result = $model->updateProduct($product);
         if ($result->messageCode) {
             return redirect()->route('admin.product.list')
                 ->with(['level' => 'success', 'message' => $result->message]);
@@ -247,8 +262,12 @@ class ProductController extends Controller
         //change 'cate_id' to 'category', to display in view.
         $categoryModel = new Category();
         foreach ($productList as $item) {
-            $item->category
-                = $categoryModel->getCategoryById($item->cate_id)->result->name;
+            if($item->cate_id){
+                $item->category
+                    = $categoryModel->getCategoryById($item->cate_id)->result->name;
+            }else{
+                $item->category = null;
+            }
         }
 
         return view('admin.product.list', compact(['productList']));
@@ -267,6 +286,28 @@ class ProductController extends Controller
 
         //check $id input, is exist ?
         $checkId = $model->getProductById($id);
+
+        $thisProduct = $checkId->result;
+        //delete image:
+        if ($thisProduct->image) {
+            $thumbnail = "admin/images/products/"
+                .$thisProduct->image;
+            if (File::exists($thumbnail)) {
+                File::delete($thumbnail);
+            }
+        }
+        //delete detail image:
+        if ($thisProduct->listimg) {
+            $listImg = json_decode($thisProduct->listimg);
+            foreach ($listImg as $item) {
+                $thumbnail = "admin/images/product_list/"
+                    .$item;
+                if (File::exists($thumbnail)) {
+                    File::delete($thumbnail);
+                }
+            }
+        }
+
         if ($checkId->messageCode) {
             $result = $model->deleteProduct($id);
             if ($result->messageCode) {

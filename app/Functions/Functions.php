@@ -27,6 +27,7 @@ function stripUnicode($str)
 
     return $str;
 }
+
 function changeTitle($str)
 {
     $str = trim($str);
@@ -42,4 +43,31 @@ function changeTitle($str)
     $str = str_replace(' ', '-', $str);
 
     return $str;
+}
+
+/**
+ *Function: make an image is unique
+ * and move them to apropriate folder
+ * @param $image
+ * @param string $path
+ *
+ * @return string
+ */
+function imageHandle($image, $path = 'admin/images/products/')
+{
+    //get original name of picture.
+    $thumbnail = $image->getClientOriginalName();
+    //get the extension of picture.
+    $arrayImage = explode('.', $thumbnail);
+    $extension = end($arrayImage);
+    //get the only name of the picture.
+    $cutName = explode(".".$extension, $thumbnail);
+    $newName = time()."-".reset($cutName);
+    //create new picture.
+    $newThumbnail = $newName.".".$extension;
+
+    //move image to appropriate Folder:
+    $image->move($path, $newThumbnail);
+
+    return $newThumbnail;
 }

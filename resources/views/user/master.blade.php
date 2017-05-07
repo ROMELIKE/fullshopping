@@ -6,6 +6,7 @@
 <body>
 @include('user.block.header')
 
+@include('user.block.message')
 @yield('content')
 
 @include('user.block.footer')

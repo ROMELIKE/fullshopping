@@ -44,7 +44,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <form class="form-horizontal" role="form"
-                              action="{!! route('admin.cate.edit',['id'=>$thisCategory->id]) !!}" method="post">
+                              action="{{route('admin.cate.edit',['id'=>$thisCategory->id])}}" method="post">
                             <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Category
@@ -67,13 +67,13 @@
                                        for="form-field-1-1">Parrent</label>
 
                                 <div class="col-sm-9">
-                                    <select name="parrent" id="">
+                                    <select name="parrent_id" id="">
                                         <option value="" class="disabled">Choose a parrent category</option>
                                         @foreach($list as $item)
                                             @if($item->id == $thisCategory->parrent_id)
-                                                <option value="{!! $item->id !!}" selected>{!! $item->name !!}</option>
+                                                <option value="{!! $item->id !!}" selected>{{$item->name}}</option>
                                             @else
-                                                <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                                <option value="{!! $item->id !!}">{{$item->name}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -86,7 +86,7 @@
                                     @if($thisCategory->status)
                                         <span class="input-icon">
 												<label>
-                                                <input name="switch_field_1" class="ace ace-switch ace-switch-3"
+                                                <input name="status" class="ace ace-switch ace-switch-3"
                                                        type="checkbox" checked>
                                                 <span class="lbl"></span>
                                             </label>
@@ -94,7 +94,7 @@
                                     @else
                                         <span class="input-icon">
 												<label>
-                                                <input name="switch_field_1" class="ace ace-switch ace-switch-3"
+                                                <input name="status" class="ace ace-switch ace-switch-3"
                                                        type="checkbox">
                                                 <span class="lbl"></span>
                                             </label>

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Business\resultObject;
+use App\Business\ResultObject;
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
 use DB;
@@ -21,65 +21,64 @@ class Category extends Model
             'status'
         ];
     public $timestamps = false;
-
     //declare some relationship.
-
     //relationship with product: "1 category maybe have 1 or more product".
     public function product()
     {
         return $this->hasMany('App\Models\Product');
     }
-
     //--------------------------------------------------------------------------
-
     /**
-     * Function: get the list of categories.
+     * Function: Get the list of categories.
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function getCategoryList($orderBy = null)
     {
-        $result = new resultObject;
+        $result = new ResultObject;
         if (isset($orderBy) && $orderBy) {
             try {
-                $sql = DB::table($this->table)->orderBy('date', $orderBy)->get()
-                    ->toArray();
+                $sql = DB::table($this->table)->orderBy('date', $orderBy)->paginate(8);
                 if ($sql) {
-                    $result->message = 'Thành công';
+                    $result->message = 'Successfully';
                     $result->messageCode = 1;
                     $result->result = $sql;
                 } else {
-                    $result->message = 'Thất bại';
+                    $result->message = 'Error!';
                     $result->messageCode = 0;
                 }
             } catch (Exception $exception) {
-                $result->message = 'Sql exception';
+                $result->message = $exception->getMessage();
                 $result->messageCode = 0;
             }
         } else {
             try {
-                $sql = DB::table($this->table)->get()->toArray();
+                $sql = DB::table($this->table)->orderBy('date','DESC')->paginate(10);
                 if ($sql) {
-                    $result->message = 'Thành công';
+                    $result->message = 'Successfully';
                     $result->messageCode = 1;
                     $result->result = $sql;
                 } else {
-                    $result->message = 'Thất bại';
+                    $result->message = 'Error';
                     $result->messageCode = 0;
                 }
             } catch (Exception $exception) {
-                $result->message = 'Sql exception';
+                $result->message = $exception->getMessage();
                 $result->messageCode = 0;
             }
         }
 
-
         return $result;
     }
 
+    /**
+     * Function: Get the list of menu level 1.
+     *
+     * @return ResultObject
+     */
     public function getMenuLevel1List()
     {
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
             $sql = DB::table($this->table)->where('parrent_id', 0)
                 ->where('status', '>', 0)->get()->toArray();
@@ -92,7 +91,7 @@ class Category extends Model
                 $result->messageCode = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -104,26 +103,26 @@ class Category extends Model
      *
      * @param $id
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function getCategoryById($id)
     {
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
             $sql = DB::table($this->table)->where('id', $id)->first();
             if ($sql) {
-                $result->message = 'Thành công';
+                $result->message = 'Successfully';
                 $result->messageCode = 1;
                 $result->result = $sql;
                 $result->numberOfResult = count($sql);
             } else {
-                $result->message = 'Thất bại';
+                $result->message = 'Failure';
                 $result->messageCode = 0;
                 $result->result = $sql;
                 $result->numberOfResult = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
             $result->numberOfResult = 0;
         }
@@ -131,26 +130,32 @@ class Category extends Model
         return $result;
     }
 
+    /**
+     * Function: get the list of category, have general parrent_id.
+     * @param $id
+     *
+     * @return ResultObject
+     */
     public function getCategoryByParrentId($id)
     {
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
             $sql = DB::table($this->table)->where('parrent_id', $id)
                 ->where('status', '>', 0)->get()
                 ->toArray();
             if ($sql) {
-                $result->message = 'Thành công';
+                $result->message = 'Successfully!';
                 $result->messageCode = 1;
                 $result->result = $sql;
                 $result->numberOfResult = count($sql);
             } else {
-                $result->message = 'Thất bại';
+                $result->message = 'Failure!';
                 $result->messageCode = 0;
                 $result->result = $sql;
                 $result->numberOfResult = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
             $result->numberOfResult = 0;
         }
@@ -163,11 +168,11 @@ class Category extends Model
      *
      * @param $name
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function checkCategoryExist($name)
     {
-        $result = new resultObject();
+        $result = new ResultObject();
         try {
             $sql = DB::table($this->table)->where('name', $name)->get();
             if (count($sql)) {
@@ -179,7 +184,7 @@ class Category extends Model
                 $result->message = 'This Category Can be use.';
             }
         } catch (\Exception $exception) {
-            $result->message = 'SQL exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -187,15 +192,16 @@ class Category extends Model
     }
 
     /**
-     * Function: Check a category is parren_id ?
+     * Function: Check a category is parren_id ?,
+     * Purpose: check before delete category
      *
      * @param $id
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function checkCategoryIsParrent($id)
     {
-        $result = new resultObject();
+        $result = new ResultObject();
         try {
             $sql = DB::table($this->table)->where('parrent_id', $id)->get();
             if (count($sql)) {
@@ -207,7 +213,7 @@ class Category extends Model
                 $result->message = 'This Category Can be deleted.';
             }
         } catch (\Exception $exception) {
-            $result->message = 'SQL exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -219,37 +225,37 @@ class Category extends Model
      *
      * @param $array
      *
-     * @return resultObject
+     * @return ResultObject
      */
-    public function addNewCategory($array)
+    public function addNewCategory($category)
     {
         $param = [];
-        if (isset($array['name']) && $array['name']) {
-            $param['name'] = $array['name'];
+        if (isset($category->name) && $category->name) {
+            $param['name'] = $category->name;
         } else {
             $param['name'] = 'Unknow Cateogry';
         }
-        if (isset($array['parrent_id']) && $array['parrent_id']) {
-            $param['parrent_id'] = $array['parrent_id'];
+        if (isset($category->parrent_id) && $category->parrent_id) {
+            $param['parrent_id'] = $category->parrent_id;
         } else {
             $param['parrent_id'] = 0;
         }
-        if (isset($array['status']) && $array['status']) {
-            $param['status'] = $array['status'];
+        if (isset($category->status) && $category->status) {
+            $param['status'] = 1;
         } else {
-            $param['status'] = null;
+            $param['status'] = 0;
         }
-        if (isset($array['date']) && $array['date']) {
-            $param['date'] = $array['date'];
+        if (isset($category->date) && $category->date) {
+            $param['date'] = $category->date;
         } else {
             $param['date'] = null;
         }
-        if (isset($array['alias']) && $array['alias']) {
-            $param['alias'] = $array['alias'];
+        if (isset($category->alias) && $category->alias) {
+            $param['alias'] = $category->alias;
         } else {
             $param['alias'] = null;
         }
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
             $sql = DB::table($this->table)->insertGetId($param);
             if ($sql) {
@@ -261,7 +267,7 @@ class Category extends Model
                 $result->messageCode = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -273,28 +279,28 @@ class Category extends Model
      *
      * @param $array
      *
-     * @return resultObject
+     * @return ResultObject
      */
-    public function upDateCategory($array)
+    public function upDateCategory($category)
     {
         $param = [];
-        if (isset($array['name']) && $array['name']) {
-            $param['name'] = $array['name'];
+        if (isset($category->name) && $category->name) {
+            $param['name'] = $category->name;
         }
-        if (isset($array['parrent_id']) && $array['parrent_id']) {
-            $param['parrent_id'] = $array['parrent_id'];
+        if (isset($category->parrent_id) && $category->parrent_id) {
+            $param['parrent_id'] = $category->parrent_id;
         }
-        if (isset($array['status']) && $array['status']) {
+        if (isset($category->status) && $category->status) {
             $param['status'] = 1;
-        } else {
+        }else{
             $param['status'] = 0;
         }
-        if (isset($array['alias']) && $array['alias']) {
-            $param['alias'] = $array['alias'];
+        if (isset($category->alias) && $category->alias) {
+            $param['alias'] = $category->alias;
         }
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
-            $sql = DB::table($this->table)->where('id', $array['id'])
+            $sql = DB::table($this->table)->where('id', $category->id)
                 ->update($param);
             if ($sql) {
                 $result->message = 'Update new category successfully!!';
@@ -305,7 +311,7 @@ class Category extends Model
                 $result->messageCode = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 
@@ -317,11 +323,11 @@ class Category extends Model
      *
      * @param $id
      *
-     * @return resultObject
+     * @return ResultObject
      */
     public function deleteCategory($id)
     {
-        $result = new resultObject;
+        $result = new ResultObject;
         try {
             $sql = DB::table($this->table)->where('id', $id)->delete();
             if ($sql) {
@@ -333,7 +339,29 @@ class Category extends Model
                 $result->messageCode = 0;
             }
         } catch (Exception $exception) {
-            $result->message = 'Sql exception';
+            $result->message = $exception->getMessage();
+            $result->messageCode = 0;
+        }
+
+        return $result;
+    }
+
+    public function getProductByCateId($id)
+    {
+        $result = new ResultObject;
+        try {
+            $sql = DB::table('product')->where('cate_id', $id)->get()->toArray();
+            if ($sql) {
+                $result->message = 'find successfully!!';
+                $result->messageCode = 1;
+                $result->result = $sql;
+                $result->numberOfResult = count($sql);
+            } else {
+                $result->message = 'Fail to find category!';
+                $result->messageCode = 0;
+            }
+        } catch (Exception $exception) {
+            $result->message = $exception->getMessage();
             $result->messageCode = 0;
         }
 

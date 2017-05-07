@@ -77,15 +77,14 @@
                                        for="form-field-4">Categories</label>
 
                                 <div class="col-sm-9">
-                                    <select name="cate_id" id="">
+                                    <select name="cat_id" id="">
                                         <option value="">Choose a Category</option>
                                         @foreach($categoryList as $item)
                                             @if($item->id == $thisProduct->cate_id)
-                                                <option value="{!! $item->id !!}" selected>{!! $item->name !!}</option>
+                                                <option value="{!! $item->id !!}" selected>{{$item->name}}</option>
                                             @else
-                                                <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                                <option value="{!! $item->id !!}">{{$item->name}}</option>
                                             @endif
-
                                         @endforeach
                                     </select>
                                 </div>

@@ -41,7 +41,7 @@
                 <div class="row upslide">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <form class="form-horizontal" role="form" action="{!! route('admin.cate.add') !!}"
+                        <form class="form-horizontal" role="form" action="{{route('admin.cate.add')}}"
                               method="post">
                             <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                             <div class="form-group">
@@ -50,7 +50,7 @@
 
                                 <div class="col-sm-9">
                                     <input type="text" id="form-field-1" placeholder="Category Name"
-                                           class="col-xs-10 col-sm-5" value="{!! old('catename') !!}" name="catename"/>
+                                           class="col-xs-10 col-sm-5" value="{{old('catename')}}" name="catename"/>
                                     {{--@if(count($errors)>0)--}}
                                     {{--@foreach($errors->get('catename') as $error)--}}
                                     {{--<p style='color: red'>{{$error}}</p>--}}
@@ -67,7 +67,7 @@
                                     <select name="parrent" id="">
                                         <option value="" class="disabled">Choose a parrent category</option>
                                         @foreach($list as $item)
-                                            <option value="{!! $item->id !!}">{!! $item->name !!}</option>
+                                            <option value="{!! $item->id !!}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,7 +78,7 @@
                                 <div class="col-sm-9">
 											<span class="input-icon">
 												<label>
-                                                <input name="switch_field_1" class="ace ace-switch ace-switch-3"
+                                                <input name="status" class="ace ace-switch ace-switch-3"
                                                        type="checkbox" value="1" checked>
                                                 <span class="lbl"></span>
                                             </label>

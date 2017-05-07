@@ -24,14 +24,14 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'newpw'=>'require',
+            'newpw'=>'required',
             'renewpw'=>'same:newpw',
         ];
     }
     public function messages()
     {
         return [
-            'newpw.require'=>'Enter new password',
+            'newpw.required'=>'Enter new password',
             'renewpw.same'=>'Password not match',
         ];
     }

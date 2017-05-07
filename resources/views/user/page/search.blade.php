@@ -31,6 +31,35 @@
                     </div>
                 </div>
 
+                <div class="clearfix"></div>
+                <div>
+                    <ul class="pagination pull-right no-margin">
+                        <li class="prev disabled">
+                            <a href="#">
+                                <i class="ace-icon fa fa-angle-double-left"></i>
+                            </a>
+                        </li>
+
+                        <li class="active">
+                            <a href="#">1</a>
+                        </li>
+
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+
+                        <li class="next">
+                            <a href="#">
+                                <i class="ace-icon fa fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
                 <div class='clearfix'></div>
 
             </div>

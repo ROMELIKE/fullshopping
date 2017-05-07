@@ -11,23 +11,21 @@ class ProductController extends Controller
 {
     public function getDetailProduct($id)
     {
+        //init model.
         $categoryModel = new Category();
         $productModel = new Product();
 
-        $checkId = $productModel->getProductById($id);
         //check $id input:
+        $checkId = $productModel->getProductById($id);
         if ($checkId->messageCode) {
-
             //handle menu data.
             $menuLevel1 = $categoryModel->getMenuLevel1List()->result;
             if ($menuLevel1) {
-
                 foreach ($menuLevel1 as $item) {
-                    //lấy danh sách các cate con, có cha là $item->id.
+                    //Get the list of child category, (get the children of the id=#$item->id)
                     $childs
                         = $categoryModel->getCategoryByParrentId($item->id)->result;
-
-                    //tìm lấy ra id,và name của các cates con, lưu vào 1 thuộc tính của cate cha.
+                    //use foreach-loop, to find and take more cate child, ty the parrent_id and and/
                     $array = [];
                     foreach ($childs as $childItem){
                         $array[] = $childItem;
